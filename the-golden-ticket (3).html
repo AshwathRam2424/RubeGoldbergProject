@@ -1,0 +1,1448 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>The Golden Ticket · For Dr. Weinstein</title>
+<meta name="description" content="A guided walk through our final Rube Goldberg readout, told as Charlie and the Chocolate Factory, and a goodbye to Dr. Weinstein. MCE 11, Edison Academy." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Newsreader:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   THE GOLDEN TICKET · a guided, chaptered tribute deck
+   ============================================================ */
+:root{
+  --cocoa-deep:#190b04; --cocoa:#26120a; --cocoa-2:#341a0e; --choc-light:#7a4622;
+  --choc:#5a3015; --choc-dark:#2c1408; --choc-shine:#a9683a;
+  --cream:#f7eed7; --cream-2:#f0e3c2; --cream-3:#e8d7ad; --parch-line:#dcc9a0;
+  --ink:#2c1a0c; --ink-2:#523a23; --ink-soft:#7a5c3d;
+  --gold:#e6b53f; --gold-bright:#f7d067; --gold-deep:#b07d18; --gold-pale:#f2dfa0; --gold-ink:#9a6e15;
+  --plum:#5d2c84; --plum-deep:#3a1a58; --plum-bright:#9156c0;
+  --magenta:#c83b86; --pink:#ea5f97; --coral:#ef8a63; --orange:#f0a23f; --berry:#b22e6a; --candy-red:#c8402f; --mint:#4eb38a;
+  /* legacy names the .dwg diagrams reference */
+  --line:#3a2412; --line-dim:#7a5c3d; --line-faint:#b79a6a; --rust:#c8402f; --rust-soft:#bc5a44;
+  --f-orn:"Cinzel Decorative", Georgia, serif;
+  --f-display:"Fraunces", Georgia, serif;
+  --f-body:"Newsreader", Georgia, serif;
+  --f-hand:"Caveat", "Comic Sans MS", cursive;
+  --top:68px; --bot:86px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:
+    radial-gradient(120% 80% at 50% 0%, #5a3015 0%, transparent 55%),
+    linear-gradient(180deg, #4a2818 0%, #341a0e 45%, #2c1408 100%);
+  color:var(--cream);
+  font-family:var(--f-body); font-weight:400; font-size:clamp(20px,.7vw+18px,24px); line-height:1.82;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; overflow:hidden;
+}
+a{color:inherit}
+::selection{background:var(--gold);color:var(--cocoa-deep)}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--gold-bright);outline-offset:3px;border-radius:6px}
+
+/* diagrams always fully drawn in the deck */
+[data-draw]{stroke-dashoffset:0}
+.draw-fade{opacity:1}
+
+/* ===================== APP FRAME ===================== */
+#app{display:flex;flex-direction:column;height:100dvh;height:100vh;position:relative;z-index:2}
+.fx{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.sparkle{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--gold-bright);
+  box-shadow:0 0 8px 2px rgba(247,208,103,.9),0 0 18px 5px rgba(247,208,103,.35);opacity:0;animation:twinkle linear infinite}
+.sparkle.big{width:4px;height:4px;box-shadow:0 0 13px 3px rgba(255,238,184,1),0 0 28px 8px rgba(247,208,103,.5)}
+.bubble{position:absolute;bottom:-40px;border-radius:50%;
+  background:radial-gradient(circle at 32% 30%, rgba(168,104,58,.7), rgba(58,26,10,.55));
+  box-shadow:inset 2px -2px 5px rgba(0,0,0,.3),0 0 10px rgba(120,70,34,.35);
+  opacity:0;animation:rise linear infinite}
+@keyframes rise{0%{opacity:0;transform:translateY(0) translateX(0)}10%{opacity:.65}90%{opacity:.45}100%{opacity:0;transform:translateY(-120vh) translateX(var(--drift,20px))}}
+@keyframes twinkle{0%{opacity:0;transform:translateY(8px) scale(.6)}20%{opacity:.9}50%{opacity:.35}80%{opacity:.9}100%{opacity:0;transform:translateY(-24px) scale(1)}}
+
+/* ===================== TOP BAR ===================== */
+#top{flex:0 0 var(--top);display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:0 clamp(14px,3vw,30px);z-index:40;
+  background:linear-gradient(180deg,rgba(74,42,24,.97),rgba(58,30,16,.88));backdrop-filter:blur(8px);
+  border-bottom:1px solid #8a5a32}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand__mk{font-family:var(--f-orn);font-weight:700;color:var(--gold-bright);font-size:16px;letter-spacing:.02em;white-space:nowrap}
+.brand__sub{font-family:var(--f-body);font-weight:500;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#d4b07a;white-space:nowrap}
+#navTitle{flex:1;text-align:center;font-family:var(--f-display);font-weight:500;font-style:italic;
+  font-size:clamp(15px,1.6vw,20px);color:var(--gold-pale);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  text-shadow:0 0 16px rgba(247,208,103,.3)}
+.top__right{display:flex;align-items:center;gap:10px}
+#navCounter{font-family:var(--f-orn);font-weight:700;font-size:14px;color:var(--gold-deep);
+  border:1px solid #8a5a32;border-radius:20px;padding:6px 14px;background:rgba(44,22,9,.55);white-space:nowrap}
+.iconbtn{width:44px;height:44px;border-radius:50%;border:1px solid var(--gold-deep);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;color:var(--gold-bright);
+  background:radial-gradient(circle at 34% 30%,#4a2712,#220f06);
+  box-shadow:0 0 20px rgba(230,181,63,.35);transition:transform .2s,box-shadow .2s}
+.iconbtn:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(247,208,103,.6)}
+.iconbtn svg{width:20px;height:20px}
+.iconbtn .ic-pause{display:none}
+.musicbtn.playing .ic-play{display:none}
+.musicbtn.playing .ic-pause{display:block}
+.musicbtn.playing{animation:mglow 2.6s ease-in-out infinite}
+@keyframes mglow{0%,100%{box-shadow:0 0 18px rgba(230,181,63,.4)}50%{box-shadow:0 0 40px rgba(247,208,103,.85)}}
+
+/* ===================== DECK + SCENES ===================== */
+#deck{flex:1 1 auto;position:relative;overflow:hidden;min-height:0}
+.scene{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;
+  display:flex;flex-direction:column;align-items:center;
+  padding:clamp(20px,3.5vh,44px) clamp(20px,5vw,44px);
+  opacity:0;visibility:hidden;transform:translateX(42px) scale(.992);pointer-events:none;
+  transition:opacity .55s ease, transform .55s cubic-bezier(.2,.7,.2,1), visibility .55s;
+  -webkit-overflow-scrolling:touch;
+  background:
+    radial-gradient(130% 80% at 100% 0%, #fbf4e2 0%, transparent 60%),
+    linear-gradient(180deg,#f7eed7,#f0e3c2);
+  color:var(--ink)}
+.scene::after{content:"";position:absolute;top:0;left:0;right:0;height:58px;z-index:1;pointer-events:none;line-height:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 58' preserveAspectRatio='none'%3E%3Cpath fill='%235a3015' d='M0,0 C180,28 320,28 480,8 C640,0 800,32 960,12 C1120,0 1280,24 1440,8 L1440,58 L0,58 Z'/%3E%3Cpath fill='%237a4622' d='M0,18 C200,38 360,10 520,26 C700,42 880,14 1040,30 C1180,42 1320,22 1440,34 L1440,58 L0,58 Z' opacity='.55'/%3E%3C/svg%3E") center top/100% 100% no-repeat}
+.scene.active{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+.scene.prev{transform:translateX(-42px) scale(.992)}
+.scene__wrap{width:100%;max-width:980px;margin:auto;position:relative;z-index:2;padding-top:8px}
+.scene--narrow .scene__wrap{max-width:800px}
+
+/* warm chocolate sections */
+.scene:not(.scene--water)::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.38;mix-blend-mode:multiply;
+  background-image:radial-gradient(rgba(120,92,61,.06) 1px, transparent 1.4px);background-size:5px 5px}
+.scene--choc{background:
+  radial-gradient(120% 90% at 80% -10%, #6a3a1c 0%, transparent 55%),
+  radial-gradient(110% 80% at 0% 110%, #3d2210 0%, transparent 55%),
+  linear-gradient(180deg,#4a2818,#341a0e);color:#f1e2c4}
+.scene--choc::after{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 58' preserveAspectRatio='none'%3E%3Cpath fill='%2326110a' d='M0,0 C180,28 320,28 480,8 C640,0 800,32 960,12 C1120,0 1280,24 1440,8 L1440,58 L0,58 Z'/%3E%3Cpath fill='%235a3015' d='M0,18 C200,38 360,10 520,26 C700,42 880,14 1040,30 C1180,42 1320,22 1440,34 L1440,58 L0,58 Z' opacity='.7'/%3E%3C/svg%3E") center top/100% 100% no-repeat}
+
+/* watercolor scenes (cover / title cards / goodbye) */
+.scene--water{background:#1a0d05;color:var(--cream)}
+.scene--water::after{display:none}
+.scene--water .eyebrow{color:#fff}
+.scene--water .eyebrow::before,.scene--water .eyebrow::after{background:#fff;opacity:.75}
+.scene--water::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.92;
+  background:
+    radial-gradient(58% 52% at 16% 12%, rgba(200,59,134,.85), transparent 60%),
+    radial-gradient(54% 46% at 82% 8%, rgba(145,86,192,.8), transparent 62%),
+    radial-gradient(60% 52% at 92% 40%, rgba(239,138,99,.8), transparent 60%),
+    radial-gradient(70% 56% at 50% 2%, rgba(234,95,151,.7), transparent 65%),
+    radial-gradient(80% 70% at 32% 96%, rgba(240,162,63,.5), transparent 66%)}
+.scene--water::after{content:"";position:absolute;inset:0;z-index:0;mix-blend-mode:soft-light;opacity:.4;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.5) 1px, transparent 1.5px);background-size:8px 8px}
+
+/* content-staggered entrance */
+.scene .fade{opacity:0;transform:translateY(14px)}
+.scene.active .fade{opacity:1;transform:none;transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1)}
+.scene.active .fade.d1{transition-delay:.08s}
+.scene.active .fade.d2{transition-delay:.18s}
+.scene.active .fade.d3{transition-delay:.28s}
+.scene.active .fade.d4{transition-delay:.40s}
+.scene.active .fade.d5{transition-delay:.52s}
+
+/* ===================== TYPE ===================== */
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:var(--f-orn);font-weight:700;
+  font-size:14px;letter-spacing:.06em;color:var(--gold-deep);margin:0 0 18px;text-transform:none}
+.scene--choc .eyebrow{color:var(--gold)}
+.eyebrow::before,.eyebrow::after{content:"";width:28px;height:1px;background:currentColor;opacity:.55;flex-shrink:0}
+.eyebrow--solo::before,.eyebrow--solo::after{display:none}
+.kicker{font-family:var(--f-body);font-weight:500;letter-spacing:.28em;text-transform:uppercase;font-size:13px;color:#8a6640}
+.scene--choc .kicker{color:#cBaa78}
+h1,h2,h3{font-family:var(--f-display);font-weight:500;line-height:1.08;letter-spacing:-.014em;margin:0}
+.h-cover{font-family:var(--f-orn);font-weight:900;line-height:.94}
+.h1{font-size:clamp(38px,5.8vw,72px);margin:0 0 .28em}
+.h2{font-size:clamp(30px,4vw,52px);margin:0 0 .32em}
+.h3{font-size:clamp(22px,2.4vw,32px)}
+.lede{font-family:var(--f-display);font-weight:400;font-style:italic;font-size:clamp(20px,1.8vw,28px);
+  line-height:1.5;color:var(--ink-2)}
+.scene--choc .lede{color:var(--gold-pale)}
+.prose{font-size:clamp(18px,.6vw+17px,22px);line-height:1.78;color:var(--ink-2)}
+.scene--choc .prose{color:#ecdcbd}
+.prose p{margin:0 0 .9em} .prose p:last-child{margin-bottom:0}
+.prose-ink{color:var(--ink-2)}
+.gold-word{color:var(--gold-deep);text-shadow:none}
+.scene--choc .gold-word{color:var(--gold-bright);text-shadow:0 0 16px rgba(247,208,103,.5)}
+.rust-word{color:var(--berry)}
+.hand{font-family:var(--f-hand);font-weight:700;color:var(--coral)}
+.tagline{font-family:var(--f-body);font-weight:500;letter-spacing:.05em;color:var(--ink-soft);font-size:1.02em}
+.scene--choc .tagline{color:#cdb083}
+
+/* cards / panels */
+.card{background:linear-gradient(160deg,#fbf5e4,#efe1bf);border:1px solid var(--parch-line);border-radius:16px;
+  padding:clamp(22px,3vw,38px);color:var(--ink);box-shadow:0 26px 60px -28px rgba(0,0,0,.7),inset 0 0 0 6px rgba(255,255,255,.32)}
+.panel{background:linear-gradient(165deg,rgba(58,29,15,.6),rgba(28,14,7,.55));border:1px solid #5a371c;border-radius:16px;
+  padding:clamp(20px,3vw,34px);box-shadow:0 24px 56px -30px rgba(0,0,0,.8)}
+
+/* primary in-scene button */
+.cta{display:inline-flex;align-items:center;gap:12px;font-family:var(--f-body);font-weight:600;letter-spacing:.03em;
+  font-size:18px;color:#3a1a08;background:linear-gradient(180deg,#f7d067,#e0a82e);padding:15px 28px;border-radius:40px;
+  border:0;cursor:pointer;text-decoration:none;
+  box-shadow:0 12px 26px -10px rgba(40,12,4,.6),0 0 30px rgba(247,208,103,.45),inset 0 1px 0 rgba(255,255,255,.5);
+  transition:transform .2s,box-shadow .2s}
+.cta:hover{transform:translateY(-3px);box-shadow:0 18px 34px -10px rgba(40,12,4,.7),0 0 46px rgba(247,208,103,.7)}
+.cta svg{width:20px;height:20px}
+.cta--ghost{background:transparent;color:var(--gold-pale);border:1px solid var(--gold-deep);box-shadow:none}
+.cta--ghost:hover{background:rgba(230,181,63,.1);box-shadow:0 0 26px rgba(230,181,63,.3)}
+
+.cover-falls{margin:28px auto 0;max-width:640px;line-height:0;opacity:.92;filter:drop-shadow(0 8px 16px rgba(40,12,4,.35))}
+.cover-falls svg{display:block;width:100%;height:auto}
+
+/* ===================== COVER (scene 0) ===================== */
+.cover{text-align:center}
+.cover__title{font-family:var(--f-orn);font-weight:900;line-height:.94;font-size:clamp(38px,6vw,78px);margin:0;color:#fff;
+  text-shadow:0 3px 0 rgba(120,40,90,.35), 0 10px 30px rgba(60,10,50,.5)}
+.cover__title .g{display:block;background:linear-gradient(180deg,#fff2cf 0%,#f7d067 38%,#e6b53f 60%,#b07d18 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 3px 1px rgba(120,70,10,.45)) drop-shadow(0 0 30px rgba(247,208,103,.55))}
+.cover__sub{font-family:var(--f-display);font-style:italic;font-size:clamp(18px,2vw,24px);line-height:1.5;color:#fff;
+  text-shadow:0 2px 10px rgba(70,15,55,.55);max-width:36ch;margin:14px auto 0}
+.cover__note{font-family:var(--f-body);font-size:16px;line-height:1.62;color:#fff;opacity:.94;max-width:54ch;margin:14px auto 0;
+  text-shadow:0 2px 8px rgba(60,10,50,.5)}
+
+/* golden ticket */
+.ticket-wrap{position:relative;margin:18px auto 0;max-width:400px}
+.ticket-wrap::before{content:"";position:absolute;inset:-14% -8%;z-index:-1;pointer-events:none;
+  background:radial-gradient(closest-side, rgba(247,208,103,.55), rgba(247,208,103,.14) 55%, transparent 76%);filter:blur(16px);
+  animation:taura 6s ease-in-out infinite}
+@keyframes taura{0%,100%{opacity:.66;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+.ticket{position:relative;border-radius:13px;padding:8px;overflow:hidden;transform:rotate(-1.1deg);
+  background:linear-gradient(135deg,#fff4d2 0%,#f3cf6a 26%,#e7b740 46%,#f4d275 64%,#cf9a2a 100%);
+  box-shadow:0 26px 54px -22px rgba(40,12,4,.7),0 0 46px rgba(230,181,63,.5),inset 0 0 0 2px rgba(255,255,255,.4);
+  animation:tfloat 7s ease-in-out infinite}
+@keyframes tfloat{0%,100%{transform:rotate(-1.1deg) translateY(0)}50%{transform:rotate(-1.1deg) translateY(-7px)}}
+.ticket::after{content:"";position:absolute;top:0;left:-60%;width:45%;height:100%;mix-blend-mode:screen;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-18deg);animation:tshim 5.5s ease-in-out infinite}
+@keyframes tshim{0%{left:-60%}55%{left:130%}100%{left:130%}}
+.ticket__in{position:relative;z-index:2;border:2px dashed rgba(120,80,12,.55);border-radius:9px;padding:14px 20px}
+.ticket__ey{font-family:var(--f-body);font-weight:500;letter-spacing:.24em;text-transform:uppercase;font-size:12px;color:#7a5310}
+.ticket__big{font-family:var(--f-orn);font-weight:900;font-size:clamp(28px,4.4vw,42px);line-height:1;color:#5a3d08;margin:8px 0 6px;text-shadow:0 1px 0 rgba(255,255,255,.4)}
+.ticket__rule{height:1px;background:rgba(120,80,12,.4);margin:14px 0}
+.ticket__names{font-family:var(--f-display);font-weight:500;font-size:clamp(16px,1.8vw,20px);color:#5e4108;line-height:1.5}
+.ticket__admit{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-top:14px;font-family:var(--f-body);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7a5310}
+.ticket__admit b{font-family:var(--f-orn);font-weight:900;font-size:24px;letter-spacing:0;color:#5a3d08}
+
+/* ===================== CHAIN PILLS ===================== */
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:center}
+.chain .lk{padding:10px 18px;border-radius:30px;border:1.5px solid #8a5a32;background:rgba(255,248,232,.85);font-family:var(--f-orn);font-weight:700;font-size:14px;color:var(--ink-2)}
+.scene--choc .chain .lk{border-color:#6a4422;background:#2c1609;color:var(--gold-pale)}
+.chain .lk.t{color:var(--gold-deep);border-color:var(--gold-deep)} .scene--choc .chain .lk.t{color:var(--gold-bright)}
+.chain .lk.a{color:var(--berry);border-color:var(--berry)} .chain .lk.o{color:#2f8f62;border-color:#2f8f62}
+.chain .arr{color:var(--gold-deep);font-size:20px}
+.scene--choc .chain .arr{color:var(--gold-deep)}
+
+/* ===================== CALLOUT ===================== */
+.callout{position:relative;border-radius:12px;padding:20px 24px;background:linear-gradient(90deg,rgba(200,59,134,.08),transparent);border-left:4px solid var(--berry);text-align:left}
+.scene--choc .callout{background:linear-gradient(90deg,rgba(230,181,63,.16),transparent);border-left-color:var(--gold)}
+.callout .k{display:block;font-family:var(--f-body);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--berry);margin-bottom:8px}
+.scene--choc .callout .k{color:var(--gold-bright)}
+.callout p{margin:0;font-size:1.05em;color:var(--ink-2);line-height:1.65}
+.scene--choc .callout p{color:#f0e2c4}
+.callout--ink{background:linear-gradient(90deg,rgba(200,59,134,.1),transparent);border-left-color:var(--magenta)}
+.callout--ink .k{color:var(--magenta)} .callout--ink p{color:var(--ink)}
+
+/* ===================== PREVIEW CARDS (two interventions) ===================== */
+.tease-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:stretch}
+.tease{position:relative;display:flex;flex-direction:column;gap:10px;text-align:left;text-decoration:none;cursor:pointer;
+  padding:26px;border-radius:15px;overflow:hidden;border:1px solid #c9a86a;
+  background:linear-gradient(165deg,rgba(255,247,228,.98),rgba(244,231,196,.96));
+  box-shadow:0 20px 44px -24px rgba(0,0,0,.35);transition:transform .25s,box-shadow .25s,border-color .25s}
+.tease:hover{transform:translateY(-5px);border-color:var(--gold-deep);box-shadow:0 28px 54px -24px rgba(0,0,0,.45),0 0 34px rgba(230,181,63,.4)}
+.tease__no{font-family:var(--f-orn);font-weight:900;font-size:48px;line-height:1;color:transparent;
+  background:linear-gradient(180deg,#e7b740,#b07d18);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 0 12px rgba(230,181,63,.4))}
+.tease__tag{font-family:var(--f-body);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep)}
+.tease__title{font-family:var(--f-display);font-weight:600;font-size:1.35em;color:var(--ink);line-height:1.15}
+.tease__line{font-size:1.02em;color:var(--ink-2);line-height:1.58}
+.tease__go{margin-top:auto;padding-top:6px;font-family:var(--f-body);font-weight:600;font-size:14px;color:var(--berry)}
+
+/* ===================== INTERVENTION: tabs + diagram ===================== */
+.ivchip{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-body);font-weight:600;font-size:12.5px;
+  letter-spacing:.16em;text-transform:uppercase;color:#3a1a08;background:linear-gradient(180deg,#f7d067,#e0a82e);
+  padding:8px 18px;border-radius:30px;box-shadow:0 0 22px rgba(247,208,103,.5)}
+.ivgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,3.5vw,44px);align-items:stretch;width:100%}
+.ivgrid > div{display:flex;flex-direction:column}
+.tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.tab{font-family:var(--f-body);font-weight:600;font-size:15px;letter-spacing:.01em;cursor:pointer;
+  padding:11px 18px;border-radius:30px;border:1px solid #b89a6a;background:rgba(255,248,232,.7);color:var(--ink-soft);
+  transition:background .2s,color .2s,border-color .2s}
+.tab:hover{color:var(--ink);border-color:var(--gold-deep)}
+.tab.on{background:linear-gradient(180deg,#f7d067,#e0a82e);color:#3a1a08;border-color:var(--gold-deep);box-shadow:0 0 22px rgba(247,208,103,.45)}
+.pane{display:none;flex:1} .pane.on{display:block;animation:panein .45s ease}
+@keyframes panein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.reasons{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:14px}
+.reasons li{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+.reasons .rno{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-family:var(--f-orn);font-weight:700;font-size:13px;color:#fff;background:radial-gradient(circle at 36% 30%,#d4506a,#9a2647)}
+.fix .rno{background:radial-gradient(circle at 36% 30%,#5fc59a,#2f8f62)}
+.reasons b{font-family:var(--f-display);font-weight:600;color:var(--berry);display:block;margin-bottom:3px;font-size:1.05em}
+.fix .reasons b{color:#2f8f62}
+.scene--choc .reasons b{color:var(--gold-pale)}
+.scene--choc .fix .reasons b{color:#5fc59a}
+.reasons p,.reasons span.t{margin:0;font-size:1em;color:var(--ink-2);line-height:1.58}
+.scene--choc .reasons p,.scene--choc .reasons span.t{color:#dac4a2}
+/* diagram holder */
+.figbox{position:relative;flex:1;display:flex;flex-direction:column;background:linear-gradient(160deg,#fbf5e4,#efe1bf);border:1px solid var(--parch-line);border-radius:14px;
+  padding:20px;box-shadow:0 18px 44px -24px rgba(0,0,0,.35),inset 0 0 0 5px rgba(255,255,255,.3)}
+.figbox__cap{font-family:var(--f-body);font-weight:600;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#7a5310;margin:0 0 10px;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.figbox__cap b{font-family:var(--f-orn);font-weight:700;letter-spacing:0;color:#7a5310;text-transform:none;font-size:14px}
+.figslot{position:relative;flex:1;display:flex;align-items:center}
+.figslot [data-figname]{display:none;width:100%}
+.figslot [data-figname].on{display:block;animation:panein .45s ease}
+.figslot svg{display:block;width:100%;height:auto;max-height:min(52vh,520px)}
+
+/* ===================== RELIABILITY SLIDER ===================== */
+.rel{display:grid;gap:14px;width:100%;max-width:680px;margin:0 auto;text-align:center}
+.rel__row{font-family:var(--f-display);font-size:clamp(19px,1.8vw,26px);color:var(--gold-pale);line-height:1.45}
+.rel__row b{color:var(--gold-bright)}
+.rel__big{font-family:var(--f-orn);font-weight:900;font-size:clamp(38px,5.5vw,60px);line-height:1;color:transparent;
+  background:linear-gradient(180deg,#fff2cf,#f7d067 50%,#e0a82e);-webkit-background-clip:text;background-clip:text;
+  filter:drop-shadow(0 0 24px rgba(247,208,103,.5))}
+input[type=range].slider{-webkit-appearance:none;appearance:none;width:100%;max-width:460px;margin:8px auto 0;height:10px;border-radius:8px;
+  background:linear-gradient(90deg,#8a5a32,#b07d18);outline:none;cursor:pointer}
+input[type=range].slider::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;
+  background:radial-gradient(circle at 36% 30%,#fff2cf,#e0a82e);border:2px solid #fff4d2;box-shadow:0 0 18px rgba(247,208,103,.8),0 4px 10px rgba(0,0,0,.4);cursor:pointer}
+input[type=range].slider::-moz-range-thumb{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 36% 30%,#fff2cf,#e0a82e);border:2px solid #fff4d2;box-shadow:0 0 18px rgba(247,208,103,.8);cursor:pointer}
+.relbar{height:18px;border-radius:10px;background:rgba(44,22,9,.35);overflow:hidden;border:1px solid #8a5a32;max-width:560px;margin:0 auto;width:100%}
+.relbar__fill{height:100%;border-radius:10px;width:34%;background:linear-gradient(90deg,#c8402f,#ef8a63);transition:width .25s ease, background .25s ease;box-shadow:0 0 18px rgba(247,208,103,.4)}
+
+/* ===================== EXAM CHIPS ===================== */
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:820px;margin:0 auto}
+.chip{font-family:var(--f-body);font-weight:600;font-size:15px;cursor:pointer;padding:12px 20px;border-radius:30px;
+  border:1px solid #b89a6a;background:rgba(255,248,232,.75);color:var(--ink-soft);transition:all .2s}
+.chip:hover{color:var(--ink);border-color:var(--gold-deep)}
+.chip.on{background:linear-gradient(180deg,#f7d067,#e0a82e);color:#3a1a08;border-color:var(--gold-deep);box-shadow:0 0 22px rgba(247,208,103,.45)}
+.topicpane{display:none} .topicpane.on{display:block;animation:panein .45s ease}
+.topicpane{margin:24px auto 0;max-width:720px}
+
+/* ===================== PROJECT CONNECTOR ===================== */
+.connector{position:relative;margin:12px auto 0;max-width:900px;width:100%;padding-top:8px}
+.connector__line{position:absolute;top:52px;left:12%;right:12%;height:4px;border-radius:3px;overflow:hidden;
+  background:linear-gradient(90deg,transparent,var(--gold-deep) 12%,var(--gold-bright) 50%,var(--gold-deep) 88%,transparent);box-shadow:0 0 16px rgba(247,208,103,.75)}
+.connector__line::after{content:"";position:absolute;top:0;bottom:0;width:32%;border-radius:3px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.9),transparent);animation:flowline 3.4s linear infinite}
+@keyframes flowline{0%{left:-40%}100%{left:130%}}
+.nodes{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
+.node{display:flex;flex-direction:column;align-items:center;gap:12px;text-decoration:none;text-align:center;cursor:pointer;background:none;border:0;padding:0}
+.node__orb{position:relative;width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  background:radial-gradient(circle at 36% 30%,#5a3015,#2c1408);border:2px solid var(--gold-deep);
+  box-shadow:0 0 0 6px rgba(230,181,63,.1),0 0 30px rgba(230,181,63,.45),inset 0 0 18px rgba(0,0,0,.45);animation:orbp 4.6s ease-in-out infinite}
+.node:nth-child(2) .node__orb{animation-delay:.7s} .node:nth-child(3) .node__orb{animation-delay:1.4s}
+@keyframes orbp{0%,100%{box-shadow:0 0 0 6px rgba(230,181,63,.07),0 0 24px rgba(230,181,63,.4),inset 0 0 18px rgba(0,0,0,.45)}50%{box-shadow:0 0 0 10px rgba(230,181,63,.13),0 0 42px rgba(230,181,63,.62),inset 0 0 18px rgba(0,0,0,.45)}}
+.node__orb svg{width:48px;height:48px}
+.node__yr{font-family:var(--f-body);font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep)}
+.node__name{font-family:var(--f-display);font-weight:600;font-size:1.1em;color:var(--ink);line-height:1.22;max-width:18ch}
+.node__sub{font-family:var(--f-body);font-size:13px;color:var(--ink-soft);line-height:1.45;max-width:22ch}
+.scene--water .node__yr{color:var(--gold)}
+.scene--water .node__name{color:var(--gold-pale)}
+.scene--water .node__sub{color:#cdb083}
+.node:hover .node__orb{border-color:var(--gold-bright);box-shadow:0 0 0 11px rgba(230,181,63,.16),0 0 48px rgba(247,208,103,.75),inset 0 0 18px rgba(0,0,0,.4)}
+
+/* ===================== THREE-INTO-ONE (lesson) ===================== */
+.synth{display:flex;align-items:flex-end;justify-content:center;gap:clamp(12px,2.5vw,26px);flex-wrap:wrap;margin:10px 0 4px}
+.synth__i{display:flex;flex-direction:column;align-items:center;gap:8px;width:108px}
+.synth__o{width:68px;height:68px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--gold-deep);
+  background:radial-gradient(circle at 36% 30%,#5a3015,#2c1408);box-shadow:0 0 24px rgba(230,181,63,.4)}
+.synth__o svg{width:34px;height:34px} .synth__l{font-family:var(--f-body);font-size:13px;color:var(--ink-soft);text-align:center;line-height:1.35}
+.scene--choc .synth__l{color:#cdb083}
+.synth__arr{font-size:30px;color:var(--gold-deep);line-height:1;padding-bottom:18px}
+
+/* ===================== FLAG (goodbye) ===================== */
+.flag-rope{stroke-dasharray:1;stroke-dashoffset:1}
+.scene.active .flag-rope{animation:rope 1.6s ease .5s forwards}
+@keyframes rope{to{stroke-dashoffset:0}}
+.signoff{font-family:var(--f-display);font-style:italic;font-weight:500;font-size:clamp(20px,2.2vw,30px);color:#fff;text-shadow:0 2px 10px rgba(60,10,50,.5);margin:0 0 14px}
+.crew-final{font-family:var(--f-orn);font-weight:700;font-size:clamp(17px,2vw,26px);color:var(--gold-bright);margin:0;line-height:1.5;text-shadow:0 0 18px rgba(247,208,103,.4)}
+.colophon{max-width:64ch;font-family:var(--f-body);font-style:italic;font-size:15px;line-height:1.72;color:#f0dcc4;opacity:.94;margin:0 auto}
+
+/* ===================== DWG (diagram) styles ===================== */
+.dwg{font-family:var(--f-body)}
+.dwg .struct{fill:none;stroke:var(--line);stroke-width:2}
+.dwg .struct-2{fill:none;stroke:var(--line-dim);stroke-width:1.6}
+.dwg .ghost{fill:rgba(120,70,30,.06);stroke:var(--line-faint);stroke-width:1.2;stroke-dasharray:4 4}
+.dwg .ground{stroke:var(--line);stroke-width:2}
+.dwg .hatch{stroke:var(--line-dim);stroke-width:1.2}
+.dwg .dim{stroke:var(--line-dim);stroke-width:1.2}
+.dwg .center{stroke:var(--gold-deep);stroke-width:1.2;stroke-dasharray:7 3 2 3}
+.dwg .traj{fill:none;stroke:var(--gold-deep);stroke-width:1.8;stroke-dasharray:3 4}
+.dwg .force{stroke:var(--candy-red);stroke-width:2.8;fill:none}
+.dwg .force-ok{stroke:var(--mint);stroke-width:2.8;fill:none}
+.dwg .lead{stroke:var(--line-dim);stroke-width:1}
+.dwg .gold-fill{fill:var(--gold-deep)} .dwg .rust-fill{fill:var(--candy-red)} .dwg .ok-fill{fill:var(--mint)}
+.dwg .ball{fill:#7a4622;stroke:#3a2412;stroke-width:1.8}
+.dwg .part-fill{fill:rgba(240,162,63,.22);stroke:var(--orange);stroke-width:2}
+.dwg .rev{fill:none;stroke:var(--candy-red);stroke-width:1.6}
+.dwg t,.dwg .lbl{fill:var(--line);font-size:15px;letter-spacing:.02em}
+.dwg .lbl-dim{fill:var(--line-dim);font-size:14px;letter-spacing:.05em}
+.dwg .lbl-gold{fill:var(--gold-deep);font-size:14px;letter-spacing:.05em}
+.dwg .lbl-rust{fill:var(--candy-red);font-size:14px;letter-spacing:.05em}
+.dwg .lbl-note{fill:var(--line);font-size:15px;font-family:var(--f-hand);font-weight:700}
+
+/* ===================== BOTTOM NAV ===================== */
+#bottom{flex:0 0 var(--bot);display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:0 clamp(14px,3vw,28px);z-index:40;
+  background:linear-gradient(0deg,rgba(74,42,24,.97),rgba(58,30,16,.88));backdrop-filter:blur(8px);border-top:1px solid #8a5a32}
+.navbtn{display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:0;background:none;font-family:var(--f-body);
+  border-radius:40px;transition:transform .2s,box-shadow .2s,opacity .2s,background .2s}
+.navbtn svg{width:20px;height:20px;flex-shrink:0}
+.navbtn--back{color:#e8d4b0;border:1px solid #8a5a32;padding:12px 20px;font-size:16px;background:rgba(44,22,9,.45)}
+.navbtn--back:hover{color:var(--gold-pale);border-color:var(--gold-deep)}
+.navbtn--back:disabled{opacity:.32;cursor:default;pointer-events:none}
+.navbtn--next{color:#3a1a08;background:linear-gradient(180deg,#f7d067,#e0a82e);padding:12px 24px;
+  box-shadow:0 10px 24px -10px rgba(40,12,4,.6),0 0 28px rgba(247,208,103,.45),inset 0 1px 0 rgba(255,255,255,.5);max-width:58vw}
+.navbtn--next:hover{transform:translateY(-2px);box-shadow:0 14px 30px -10px rgba(40,12,4,.7),0 0 44px rgba(247,208,103,.7)}
+.navbtn--next .navbtn__k{font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.75;display:block;line-height:1.15}
+.navbtn--next .navbtn__l{font-family:var(--f-display);font-weight:600;font-size:17px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:42vw;display:block}
+.navbtn--next.is-finish{background:linear-gradient(180deg,#9156c0,#5d2c84);color:#fff}
+.navtxt{display:flex;flex-direction:column;align-items:flex-end;text-align:right;line-height:1.1;min-width:0}
+.dots{display:flex;align-items:center;gap:8px;flex-wrap:nowrap;overflow:hidden;justify-content:center}
+.dot{width:10px;height:10px;border-radius:50%;border:0;padding:0;cursor:pointer;background:#8a5a32;transition:all .25s}
+.dot.done{background:var(--gold-deep)}
+.dot.on{background:var(--gold-bright);box-shadow:0 0 10px rgba(247,208,103,.8);transform:scale(1.35)}
+
+/* ===================== MENU OVERLAY ===================== */
+.menu{position:fixed;inset:0;z-index:60;display:none;background:rgba(44,22,9,.78);backdrop-filter:blur(6px);
+  align-items:center;justify-content:center;padding:24px}
+.menu.open{display:flex;animation:panein .3s ease}
+.menu__panel{width:100%;max-width:560px;max-height:86vh;overflow-y:auto;background:linear-gradient(180deg,#f7eed7,#efe1bf);
+  border:1px solid #c9a86a;border-radius:18px;padding:24px;box-shadow:0 30px 70px -20px rgba(0,0,0,.55)}
+.menu__head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:12px}
+.menu__ttl{font-family:var(--f-orn);font-weight:700;color:var(--gold-deep);font-size:17px}
+.menu__close{width:38px;height:38px;border-radius:50%;border:1px solid #c9a86a;background:#fff8eb;color:var(--ink);cursor:pointer;font-size:18px;flex-shrink:0}
+.menu__list{display:flex;flex-direction:column;gap:4px}
+.menu__item{display:flex;align-items:center;gap:14px;width:100%;text-align:left;cursor:pointer;border:0;background:none;
+  padding:12px 14px;border-radius:9px;color:var(--ink-soft);font-family:var(--f-body);font-size:17px;transition:background .2s,color .2s}
+.menu__item:hover{background:rgba(230,181,63,.14);color:var(--ink)}
+.menu__item.on{background:linear-gradient(90deg,rgba(230,181,63,.22),transparent);color:var(--gold-deep)}
+.menu__n{font-family:var(--f-orn);font-weight:700;font-size:12px;color:var(--gold-deep);min-width:28px;height:28px;
+  display:flex;align-items:center;justify-content:center;border:1px solid #c9a86a;border-radius:5px;background:#fff8eb;flex-shrink:0}
+.menu__item.on .menu__n{background:var(--gold);color:#2c1408;border-color:var(--gold-bright)}
+
+/* music hint */
+.musichint{position:fixed;top:76px;right:14px;z-index:55;max-width:260px;font-family:var(--f-body);font-size:14px;line-height:1.5;
+  color:var(--gold-pale);background:rgba(74,42,24,.96);border:1px solid #8a5a32;border-radius:11px;padding:12px 14px;
+  box-shadow:0 10px 24px -10px rgba(0,0,0,.5);opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .5s,transform .5s}
+.musichint b{color:var(--gold-bright);font-family:var(--f-orn);font-weight:700;font-size:12px}
+.musichint.show{opacity:1;transform:none}
+
+/* centered text blocks */
+.text-center{text-align:center}
+.text-center .eyebrow{justify-content:center}
+.measure{max-width:64ch;margin-left:auto;margin-right:auto;margin-bottom:20px}
+.measure-left{max-width:64ch;margin-left:auto;margin-right:auto;text-align:left;margin-bottom:20px}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width:820px){
+  .ivgrid{grid-template-columns:1fr;gap:24px}
+  .tease-grid{grid-template-columns:1fr}
+  .nodes{grid-template-columns:1fr;gap:28px} .connector__line{display:none}
+  .node{max-width:360px;margin:0 auto}
+  #navTitle{display:none}
+  .brand__sub{display:none}
+  .figslot svg{max-height:none}
+}
+@media (max-width:540px){
+  :root{--top:58px;--bot:92px}
+  #bottom{flex-wrap:wrap;padding-top:10px;padding-bottom:10px;gap:10px;justify-content:space-between}
+  .dots{order:3;width:100%;justify-content:center;gap:7px}
+  .navbtn--next{max-width:64vw}
+  .navbtn--next .navbtn__l{max-width:48vw}
+  .scene{padding-left:16px;padding-right:16px}
+  .cover__title{font-size:clamp(42px,13vw,76px)}
+  .tabs{gap:6px}
+  .tab{padding:10px 14px;font-size:14px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important}
+  .scene{transition:opacity .3s ease !important;transform:none !important}
+  .scene .fade{opacity:1 !important;transform:none !important}
+}
+
+/* =====================================================================
+   ✦ POLISH PASS · clean fit, gentle scroll cue, small fixes
+   loaded last so it wins the cascade
+   ===================================================================== */
+
+/* 1 · robust vertical fit: centre a scene when it fits, but flow from the
+   top and scroll cleanly (never clipping the title) when it is taller. */
+.scene{justify-content:safe center}
+@supports not (justify-content:safe center){ .scene{justify-content:flex-start} }
+.scene__wrap{margin-top:0;margin-bottom:0}
+
+/* 2 · a gentle "there is more below" cue, styled to match the icon buttons,
+   so an unhurried reader always finds the rest of a page (the goodbye especially) */
+.scrollcue{position:fixed;left:50%;bottom:calc(var(--bot) + 14px);transform:translateX(-50%) translateY(6px);
+  z-index:38;width:44px;height:44px;border-radius:50%;border:1px solid var(--gold-deep);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;color:var(--gold-bright);
+  background:radial-gradient(circle at 34% 30%,#4a2712,#220f06);
+  box-shadow:0 8px 22px -8px rgba(0,0,0,.55),0 0 24px rgba(230,181,63,.45);
+  opacity:0;pointer-events:none;transition:opacity .35s ease, transform .35s ease}
+.scrollcue.show{opacity:1;transform:translateX(-50%);pointer-events:auto}
+.scrollcue:hover{box-shadow:0 8px 22px -8px rgba(0,0,0,.55),0 0 34px rgba(247,208,103,.7)}
+.scrollcue svg{width:21px;height:21px;animation:cuebob 1.5s ease-in-out infinite}
+@keyframes cuebob{0%,100%{transform:translateY(-1px)}50%{transform:translateY(3px)}}
+
+/* 3 · COVER: trim so the call to action sits on one screen on common laptops */
+.cover__title{font-size:clamp(38px,6vw,70px)}
+.cover__sub{max-width:50ch;margin-top:11px}
+.cover__note{max-width:54ch;margin-top:9px}
+.cover .ticket-wrap{margin-top:13px}
+.cover .ticket__in{padding:13px 19px}
+.cover .ticket__names{line-height:1.42}
+.cover .ticket__rule{margin:11px 0}
+.cover .ticket__admit{margin-top:11px}
+.cover .fade.d5{margin-top:15px !important}
+.cover .cover-falls{margin-top:12px;max-width:460px}
+
+/* 4 · BUILDING (reliability): tighten so the closing note shows */
+.rel{gap:11px}
+.rel__big{margin:0}
+
+/* 5 · GOODBYE: smaller hand-raised flag and tighter gaps so the signatures
+   come within easy reach */
+.scene[data-title="For Dr. Weinstein"] .prose p{margin-bottom:.7em}
+.scene[data-title="For Dr. Weinstein"] .colophon{margin-top:12px !important}
+
+/* 6 · TICKET header: keep "Admit One Bearer" on a single line */
+.ticket__ey{letter-spacing:.15em}
+
+/* 7 · MUSIC HINT: on a phone, drop it to a centred toast above the nav so it
+   never lands on top of the heading */
+@media (max-width:600px){
+  .musichint{top:auto;bottom:calc(var(--bot) + 58px);left:14px;right:14px;max-width:none;text-align:center;
+    box-shadow:0 14px 30px -10px rgba(0,0,0,.6)}
+}
+
+</style>
+</head>
+<body>
+
+<div class="fx" id="fx" aria-hidden="true"></div>
+
+<div id="app">
+
+  <!-- ===================== TOP BAR ===================== -->
+  <header id="top">
+    <div class="brand">
+      <span class="brand__mk">The Golden Ticket</span>
+      <span class="brand__sub">MCE 11 · Edison Academy</span>
+    </div>
+    <div id="navTitle">Welcome</div>
+    <div class="top__right">
+      <span id="navCounter">1 / 13</span>
+      <button class="iconbtn musicbtn" id="musicBtn" type="button" aria-label="Play a little tune" title="Play a little tune">
+        <svg class="ic-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 17V4l11-2v13"/><circle cx="6" cy="17" r="3"/><circle cx="17" cy="15" r="3"/></svg>
+        <svg class="ic-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="5" width="3.6" height="14" rx="1.2"/><rect x="13.9" y="5" width="3.6" height="14" rx="1.2"/></svg>
+      </button>
+      <button class="iconbtn" id="btnMenu" type="button" aria-label="Chapter menu" title="Chapters">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===================== DECK ===================== -->
+  <main id="deck">
+
+<!-- 0 WELCOME -->
+<section class="scene scene--water cover" data-title="Welcome">
+  <div class="scene__wrap">
+    <p class="kicker fade" style="color:#fff;opacity:.9">Mechanical &amp; Civil Engineering · Grade 11</p>
+    <h1 class="cover__title fade d1">The<span class="g">Golden Ticket</span></h1>
+    <p class="cover__sub fade d2">A Rube Goldberg machine in twenty&#8209;one steps, told as the story of Charlie and the Chocolate Factory, built to raise a flag.</p>
+    <div class="ticket-wrap fade d3">
+      <div class="ticket"><div class="ticket__in">
+        <div class="ticket__ey">Wonka Industries &middot; Admit One</div>
+        <div class="ticket__big">Golden Ticket</div>
+        <div class="ticket__ey" style="letter-spacing:.16em">Final Readout &amp; Goodbye</div>
+        <div class="ticket__rule"></div>
+        <div class="ticket__names">Ashwath · Vishika · Anvitha<br>Srujana · Ekya · Dip · Aarush</div>
+        <div class="ticket__admit"><span>Edison Academy · MCE 11</span><span>Admit <b>7</b></span></div>
+      </div></div>
+    </div>
+    <p class="cover__note fade d4">Our final readout and our goodbye to Dr.&nbsp;Weinstein. Use the arrows below to move through it at your own pace.</p>
+    <div class="fade d5" style="margin-top:22px"><button class="cta" data-go="1">Begin the tour <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+    <div class="cover-falls fade d5" aria-hidden="true">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="chocG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#7a4622"/><stop offset="0.4" stop-color="#5a3015"/><stop offset="1" stop-color="#3d2210"/>
+          </linearGradient>
+        </defs>
+        <path fill="url(#chocG)" d="M0,0 C200,36 360,8 520,28 C700,52 900,12 1080,32 C1220,44 1340,20 1440,12 L1440,120 L0,120 Z"/>
+        <g fill="#3d2210">
+          <path d="M280,52 q12,0 12,28 q0,24 -12,24 q-12,0 -12,-24 q0,-28 12,-28 Z"/>
+          <path d="M720,64 q14,0 14,32 q0,28 -14,28 q-14,0 -14,-28 q0,-32 14,-32 Z"/>
+          <path d="M1080,48 q16,0 16,36 q0,30 -16,30 q-16,0 -16,-30 q0,-36 16,-36 Z"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- 1 THE MACHINE -->
+<section class="scene scene--narrow scene--choc" data-title="The machine">
+  <div class="scene__wrap text-center">
+    <p class="eyebrow fade">Chapter One · The Machine</p>
+    <h2 class="h2 fade d1">A story told in <span class="gold-word">moments</span> and marbles.</h2>
+    <div class="prose fade d2 measure-left">
+      <p>The assignment sounded simple. Build something that raises a flag, and make every step part of a story. The catch was a single rule: once it starts, no one may touch the table. To get the flag up, twenty&#8209;one little contraptions had to cooperate in order, each one quietly setting off the next.</p>
+      <p>We told Charlie and the Chocolate Factory with ours, from Charlie tearing open the Wonka bar all the way to the flag rising as he inherits the whole factory.</p>
+    </div>
+    <p class="tagline fade d3" style="margin:6px 0 10px">Every step obeys one rule</p>
+    <div class="chain fade d3"><span class="lk t">Trigger</span><span class="arr">&rarr;</span><span class="lk a">Action</span><span class="arr">&rarr;</span><span class="lk o">Output</span><span class="arr">&rarr;</span><span class="lk t">next Trigger</span></div>
+    <div class="callout fade d4 measure" style="margin-top:28px;text-align:left">
+      <span class="k">Where this is going</span>
+      <p>Nineteen of those steps learned to hand off on their own. Two did not, and those two are where we did our best thinking. We will walk through both, one at a time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2 TWO INTERVENTIONS (title card) -->
+<section class="scene scene--water" data-title="The two interventions">
+  <div class="scene__wrap" style="text-align:center">
+    <p class="kicker fade" style="color:#fff;opacity:.9">The heart of the report</p>
+    <h2 class="cover__title fade d1" style="font-size:clamp(32px,7vw,68px)">The Two<span class="g">Interventions</span></h2>
+    <p class="cover__note fade d2" style="max-width:52ch">Two places where the machine stalled and needed a human hand. Tap one to jump straight in, or begin with the first.</p>
+    <div class="tease-grid fade d3" style="max-width:760px;margin:26px auto 0">
+      <button class="tease" data-go="3">
+        <span class="tease__no">01</span>
+        <span class="tease__tag">Revision One · Step 16</span>
+        <span class="tease__title">The piece that would not fall</span>
+        <span class="tease__line">A marble came down the winding track, met the orange road piece exactly where we aimed, and the piece just stood there.</span>
+        <span class="tease__go">Open intervention one &rarr;</span>
+      </button>
+      <button class="tease" data-go="4">
+        <span class="tease__no">02</span>
+        <span class="tease__tag">Revision Two · Near the end</span>
+        <span class="tease__title">The blow that did not land</span>
+        <span class="tease__line">The final hammer swung down toward the launcher that fires the car at the blade, and the launcher never fired.</span>
+        <span class="tease__go">Open intervention two &rarr;</span>
+      </button>
+    </div>
+    <div class="fade d4" style="margin-top:26px"><button class="cta" data-go="3">Start with the first <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+  </div>
+</section>
+
+<!-- 3 INTERVENTION ONE -->
+<section class="scene" data-title="Intervention one">
+  <div class="scene__wrap">
+    <div class="text-center fade"><span class="ivchip">Intervention 1 of 2</span></div>
+    <h2 class="h2 fade d1 text-center" style="margin-top:16px">The piece that <span class="rust-word">would not fall.</span></h2>
+    <p class="lede fade d1 text-center measure">Step 16. The marble met the orange road piece, and it just stood there.</p>
+    <div class="ivgrid fade d2" style="margin-top:22px">
+      <div>
+        <div class="tabs">
+          <button class="tab on" data-tab="what" data-fig="a">What happened</button>
+          <button class="tab" data-tab="why" data-fig="a">Why it failed</button>
+          <button class="tab" data-tab="fix" data-fig="b">How we&#8217;d fix it</button>
+        </div>
+        <div class="pane on" data-pane="what"><div class="prose prose-ink"><p>The marble came down the winding track and tapped the orange piece right where we had planned. The piece gave a small rock, settled back upright, and the whole Wonka tour stalled there at the Nut Room. It clearly arrived with something to give. It simply could not turn that into enough rotation to carry the piece over the edge it was balancing on.</p></div></div>
+        <div class="pane" data-pane="why">
+          <p class="prose prose-ink" style="margin:0">Tipping needs a turning effort, a <b>moment</b>, larger than the one gravity is using to hold the piece up. A moment grows the higher up you push, so <i>where</i> the marble hit mattered as much as how hard.</p>
+          <ul class="reasons">
+            <li><span class="rno">1</span><span><b>It arrived slow.</b><span class="t">Every bend in the winding track quietly bled off speed, so the marble reached the piece gentler than we had pictured.</span></span></li>
+            <li><span class="rno">2</span><span><b>It struck low.</b><span class="t">A push near the base has almost no leverage, so most of its energy tried to slide the piece sideways instead of rotating it.</span></span></li>
+            <li><span class="rno">3</span><span><b>The piece was stable.</b><span class="t">A wide base and a low center of mass meant it needed a real lift to swing over the edge.</span></span></li>
+          </ul>
+        </div>
+        <div class="pane fix" data-pane="fix">
+          <p class="prose prose-ink" style="margin:0">Hit higher, start it leaning, and protect the speed.</p>
+          <ul class="reasons">
+            <li><span class="rno">1</span><span><b>Strike high on a paddle.</b><span class="t">The same push does far more tipping near the top of the piece.</span></span></li>
+            <li><span class="rno">2</span><span><b>Pre&#8209;lean it on a rail.</b><span class="t">Set its center of mass already hovering over the edge, so a gentle tap finishes the job.</span></span></li>
+            <li><span class="rno">3</span><span><b>Protect the speed.</b><span class="t">Shorten and straighten the last run of track, and use a heavier, denser ball.</span></span></li>
+            <li><span class="rno">4</span><span><b>Remove the guesswork.</b><span class="t">A short guide channel lands the marble at the same spot, at the same angle, every time.</span></span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="figbox">
+        <p class="figbox__cap"><span>Tipping analysis · Step 16</span><b>see the fix &rarr;</b></p>
+        <div class="figslot">
+          <div data-figname="a" class="on"><svg viewBox="0 0 680 470" class="dwg" aria-label="Diagram of the orange road piece failing to tip because the marble struck low and slow">
+  <defs>
+    <marker id="aR2a" markerWidth="11" markerHeight="11" refX="8" refY="3.4" orient="auto"><path d="M0 0L9 3.4L0 6.8z" class="rust-fill"/></marker>
+    <marker id="aG2a" markerWidth="11" markerHeight="11" refX="8" refY="3.4" orient="auto"><path d="M0 0L9 3.4L0 6.8z" class="gold-fill"/></marker>
+    <marker id="aD2a" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto"><path d="M0 0L7 3L0 6z" fill="var(--line-dim)"/></marker>
+  </defs>
+
+  <!-- revision badge, tucked top-right -->
+  <g class="draw-fade" transform="translate(612 40)">
+    <circle r="20" fill="none" class="rev"/><circle r="20" fill="#fbeede"/>
+    <circle r="20" fill="none" stroke="var(--candy-red)" stroke-width="1.6"/>
+    <text x="0" y="5" text-anchor="middle" class="lbl-rust" style="font-size:17px;font-weight:600">1</text>
+  </g>
+
+  <!-- ground -->
+  <line class="ground" x1="70" y1="350" x2="600" y2="350" data-draw pathLength="1"/>
+  <g class="hatch draw-fade">
+    <line x1="92" y1="350" x2="78" y2="366"/><line x1="132" y1="350" x2="118" y2="366"/>
+    <line x1="172" y1="350" x2="158" y2="366"/><line x1="212" y1="350" x2="198" y2="366"/>
+    <line x1="252" y1="350" x2="238" y2="366"/><line x1="292" y1="350" x2="278" y2="366"/>
+    <line x1="332" y1="350" x2="318" y2="366"/><line x1="372" y1="350" x2="358" y2="366"/>
+    <line x1="478" y1="350" x2="464" y2="366"/><line x1="518" y1="350" x2="504" y2="366"/>
+    <line x1="558" y1="350" x2="544" y2="366"/>
+  </g>
+
+  <!-- winding track -->
+  <path class="struct-2" d="M120 132 Q210 150 250 232 Q286 296 348 326" data-draw pathLength="1"/>
+
+  <!-- the orange road piece -->
+  <rect class="part-fill" x="384" y="200" width="70" height="150"/>
+  <!-- centre line + centre of mass -->
+  <line class="center draw-fade" x1="419" y1="186" x2="419" y2="368"/>
+  <g class="draw-fade" transform="translate(419 275)">
+    <circle r="11" fill="#fff"/><circle r="11" fill="none" stroke="var(--gold-deep)" stroke-width="1.3"/>
+    <path d="M0 -11 A11 11 0 0 1 11 0 L0 0 Z" class="gold-fill"/>
+    <path d="M0 11 A11 11 0 0 1 -11 0 L0 0 Z" class="gold-fill"/>
+  </g>
+  <!-- pivot edge -->
+  <circle cx="454" cy="350" r="4.5" class="rust-fill draw-fade"/>
+
+  <!-- marble striking low -->
+  <circle class="ball" cx="366" cy="330" r="15"/>
+  <line class="force" x1="306" y1="330" x2="380" y2="330" marker-end="url(#aR2a)" data-draw pathLength="1"/>
+  <text class="lbl-rust draw-fade" x="318" y="320" style="font-style:italic">F</text>
+
+  <!-- restoring moment, swung around the pivot -->
+  <path class="draw-fade" d="M500 350 A 46 46 0 0 0 470 308" fill="none" stroke="var(--gold-deep)" stroke-width="1.6" marker-end="url(#aG2a)"/>
+
+  <!-- base width dimension -->
+  <line class="dim draw-fade" x1="384" y1="372" x2="454" y2="372" marker-start="url(#aD2a)" marker-end="url(#aD2a)"/>
+
+  <!-- ===== labels, spread into separated zones ===== -->
+  <!-- top-left: track -->
+  <line class="lead draw-fade" x1="150" y1="120" x2="196" y2="160"/>
+  <text class="lbl-dim draw-fade" x="74" y="114">winding track sheds speed</text>
+  <!-- left: slow marble -->
+  <line class="lead draw-fade" x1="300" y1="296" x2="352" y2="320"/>
+  <text class="lbl draw-fade" x="214" y="292">slow marble</text>
+  <!-- lower-left: strikes low -->
+  <line class="lead draw-fade" x1="334" y1="402" x2="372" y2="344"/>
+  <text class="lbl-rust draw-fade" x="250" y="416">it strikes low</text>
+  <!-- right top: centre of mass -->
+  <line class="lead draw-fade" x1="500" y1="250" x2="430" y2="272"/>
+  <text class="lbl draw-fade" x="506" y="254">low centre of mass</text>
+  <!-- right mid: restoring moment -->
+  <text class="lbl-gold draw-fade" x="506" y="324">restoring moment</text>
+  <text class="lbl-gold draw-fade" x="506" y="342" style="font-style:italic">W &#183; b/2</text>
+  <!-- right low: pivot -->
+  <line class="lead draw-fade" x1="500" y1="392" x2="458" y2="352"/>
+  <text class="lbl draw-fade" x="506" y="396">pivot edge</text>
+  <!-- base label -->
+  <text class="lbl-dim draw-fade" x="419" y="392" text-anchor="middle">wide base b</text>
+</svg></div>
+          <div data-figname="b"><svg viewBox="0 0 680 470" class="dwg" aria-label="Improved design that tips the orange piece by striking high and starting it leaning">
+  <defs>
+    <marker id="aR2b" markerWidth="11" markerHeight="11" refX="8" refY="3.4" orient="auto"><path d="M0 0L9 3.4L0 6.8z" class="rust-fill"/></marker>
+    <marker id="aK2b" markerWidth="11" markerHeight="11" refX="8" refY="3.4" orient="auto"><path d="M0 0L9 3.4L0 6.8z" class="ok-fill"/></marker>
+    <marker id="aD2b" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto"><path d="M0 0L7 3L0 6z" fill="var(--line-dim)"/></marker>
+  </defs>
+
+  <g class="draw-fade" transform="translate(612 40)">
+    <circle r="20" fill="#eaf6ef"/><circle r="20" fill="none" stroke="var(--mint)" stroke-width="1.6"/>
+    <path d="M-8 1 L-3 7 L9 -6" fill="none" stroke="var(--mint)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <line class="ground" x1="70" y1="350" x2="600" y2="350" data-draw pathLength="1"/>
+  <g class="hatch draw-fade">
+    <line x1="92" y1="350" x2="78" y2="366"/><line x1="132" y1="350" x2="118" y2="366"/>
+    <line x1="172" y1="350" x2="158" y2="366"/><line x1="212" y1="350" x2="198" y2="366"/>
+    <line x1="252" y1="350" x2="238" y2="366"/><line x1="332" y1="350" x2="318" y2="366"/>
+    <line x1="372" y1="350" x2="358" y2="366"/><line x1="478" y1="350" x2="464" y2="366"/>
+    <line x1="518" y1="350" x2="504" y2="366"/><line x1="558" y1="350" x2="544" y2="366"/>
+  </g>
+
+  <!-- guided chute bringing the marble in high -->
+  <path class="struct-2" d="M150 150 L300 214" data-draw pathLength="1"/>
+  <path class="struct-2" d="M150 172 L300 236" data-draw pathLength="1"/>
+
+  <!-- thin fulcrum rail that pre-biases the piece toward the edge -->
+  <path class="draw-fade" d="M446 350 l16 0 l-8 -12 z" class="gold-fill"/>
+
+  <!-- the piece, poised on the pivot, leaning toward going over -->
+  <g transform="rotate(7 454 350)">
+    <rect class="part-fill" x="384" y="200" width="70" height="150"/>
+    <line class="center draw-fade" x1="419" y1="190" x2="419" y2="350"/>
+    <g class="draw-fade" transform="translate(419 275)">
+      <circle r="11" fill="#fff"/><circle r="11" fill="none" stroke="var(--gold-deep)" stroke-width="1.3"/>
+      <path d="M0 -11 A11 11 0 0 1 11 0 L0 0 Z" class="gold-fill"/>
+      <path d="M0 11 A11 11 0 0 1 -11 0 L0 0 Z" class="gold-fill"/>
+    </g>
+    <!-- paddle up high where the marble strikes -->
+    <rect x="372" y="210" width="14" height="9" rx="2" fill="var(--orange)"/>
+  </g>
+  <circle cx="454" cy="350" r="4.5" class="rust-fill draw-fade"/>
+
+  <!-- marble striking high on the paddle -->
+  <circle class="ball" cx="356" cy="226" r="15"/>
+  <line class="force-ok" x1="300" y1="226" x2="372" y2="226" marker-end="url(#aK2b)" data-draw pathLength="1"/>
+  <text class="draw-fade" x="312" y="216" style="font-style:italic;fill:var(--mint);font-size:13px">F</text>
+
+  <!-- tall lever arm dimension on the right -->
+  <line class="dim draw-fade" x1="486" y1="226" x2="486" y2="350" marker-start="url(#aD2b)" marker-end="url(#aD2b)"/>
+
+  <!-- it tips: arc over the pivot -->
+  <path class="draw-fade" d="M474 250 A 120 120 0 0 1 540 318" fill="none" stroke="var(--mint)" stroke-width="1.8" marker-end="url(#aK2b)"/>
+
+  <!-- ===== labels ===== -->
+  <line class="lead draw-fade" x1="206" y1="150" x2="232" y2="200"/>
+  <text class="lbl-dim draw-fade" x="120" y="142">guided chute</text>
+
+  <line class="lead draw-fade" x1="320" y1="200" x2="372" y2="214"/>
+  <text class="lbl draw-fade" x="236" y="196">strike high on a paddle</text>
+
+  <text class="lbl-dim draw-fade" x="496" y="292">long lever arm</text>
+
+  <line class="lead draw-fade" x1="470" y1="392" x2="452" y2="354"/>
+  <text class="lbl draw-fade" x="392" y="406">poised to tip on a rail</text>
+
+  <text class="draw-fade" x="548" y="312" style="fill:var(--mint);font-size:15px">and over it goes</text>
+</svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 INTERVENTION TWO -->
+<section class="scene" data-title="Intervention two">
+  <div class="scene__wrap">
+    <div class="text-center fade"><span class="ivchip">Intervention 2 of 2</span></div>
+    <h2 class="h2 fade d1 text-center" style="margin-top:16px">The blow that <span class="rust-word">did not land.</span></h2>
+    <p class="lede fade d1 text-center measure">Near the end. The final hammer swung down, and the launcher never fired.</p>
+    <div class="ivgrid fade d2" style="margin-top:22px">
+      <div>
+        <div class="tabs">
+          <button class="tab on" data-tab="what" data-fig="a">What happened</button>
+          <button class="tab" data-tab="why" data-fig="a">Why it failed</button>
+          <button class="tab" data-tab="fix" data-fig="b">How we&#8217;d fix it</button>
+        </div>
+        <div class="pane on" data-pane="what"><div class="prose prose-ink"><p>Twenty steps had behaved. The flag was sitting right there, waiting. The hammer came down, met the trigger, and nothing happened. A miss this close to the finish is rarely the fault of the last step alone, and this one was no exception.</p></div></div>
+        <div class="pane" data-pane="why">
+          <p class="prose prose-ink" style="margin:0">A swinging hammer has plenty of energy. The real trouble was that almost none of it reached the trigger in a form the trigger could actually use.</p>
+          <ul class="reasons">
+            <li><span class="rno">1</span><span><b>It hit off&#8209;axis.</b><span class="t">A hammer on a hinge swings through an arc, so only part of its force pushed the way the button could move.</span></span></li>
+            <li><span class="rno">2</span><span><b>The hinge had friction.</b><span class="t">Friction we never measured skimmed a little speed off every swing.</span></span></li>
+            <li><span class="rno">3</span><span><b>The button was stiff.</b><span class="t">It needed a full, firm press, and a quick graze never finished it.</span></span></li>
+            <li><span class="rno">4</span><span><b>Tolerances stacked up.</b><span class="t">Twenty tiny errors upstream had quietly walked the target away from where the hammer expected it.</span></span></li>
+          </ul>
+        </div>
+        <div class="pane fix" data-pane="fix">
+          <p class="prose prose-ink" style="margin:0">Trip a catch instead of pressing a button, and stop the target from drifting.</p>
+          <ul class="reasons">
+            <li><span class="rno">1</span><span><b>Trip a light catch.</b><span class="t">Pre&#8209;load the launcher so the hammer only has to knock a catch free.</span></span></li>
+            <li><span class="rno">2</span><span><b>Add a lever or cam.</b><span class="t">Turn the swing into exactly the direction and travel the release needs.</span></span></li>
+            <li><span class="rno">3</span><span><b>Guide it, then stop it.</b><span class="t">A guide and a hard stop land the hammer on the same spot, on a contact plate larger than the drift.</span></span></li>
+            <li><span class="rno">4</span><span><b>Build in margin.</b><span class="t">Design it with more force than the bare minimum, a real factor of safety.</span></span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="figbox">
+        <p class="figbox__cap"><span>Trigger linkage · the finish</span><b>see the fix &rarr;</b></p>
+        <div class="figslot">
+          <div data-figname="a" class="on"><svg viewBox="0 0 680 470" class="dwg" aria-label="Diagram of the hammer failing to trigger the launcher because it struck off-axis at the edge of its travel">
+  <defs>
+    <marker id="aR3a" markerWidth="11" markerHeight="11" refX="8" refY="3.4" orient="auto"><path d="M0 0L9 3.4L0 6.8z" class="rust-fill"/></marker>
+    <marker id="aG3a" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0 0L7 3L0 6z" fill="var(--line-dim)"/></marker>
+  </defs>
+
+  <g class="draw-fade" transform="translate(612 40)">
+    <circle r="20" fill="#fbeede"/><circle r="20" fill="none" stroke="var(--candy-red)" stroke-width="1.6"/>
+    <text x="0" y="5" text-anchor="middle" class="lbl-rust" style="font-size:17px;font-weight:600">2</text>
+  </g>
+
+  <!-- hinge / pivot -->
+  <circle cx="178" cy="108" r="7" fill="var(--line)"/>
+  <circle cx="178" cy="108" r="13" fill="none" class="struct"/>
+  <!-- friction swirl at hinge -->
+  <path class="draw-fade" d="M196 96 A 20 20 0 1 1 192 122" fill="none" stroke="var(--candy-red)" stroke-width="1.5" marker-end="url(#aR3a)"/>
+
+  <!-- raised hammer position (ghost) + swing arc -->
+  <line class="ghost draw-fade" x1="178" y1="108" x2="150" y2="250"/>
+  <path class="traj draw-fade" d="M150 250 A 150 150 0 0 1 410 286"/>
+
+  <!-- hammer arm + head at bottom of swing -->
+  <line class="struct" x1="178" y1="108" x2="408" y2="284" data-draw pathLength="1"/>
+  <circle class="ball" cx="412" cy="286" r="17"/>
+
+  <!-- the button / plunger it is meant to press (to the right) -->
+  <rect x="452" y="276" width="13" height="20" rx="2" fill="#fff" stroke="var(--line)" stroke-width="1.6"/>
+  <line class="struct-2" x1="465" y1="286" x2="486" y2="286"/>
+
+  <!-- launcher: spring + held car + blade at far right -->
+  <path class="struct-2" d="M492 286 l8 -7 l8 14 l8 -14 l8 14 l8 -14 l8 14 l6 -7" fill="none"/>
+  <rect x="486" y="276" width="22" height="20" rx="2" class="part-fill"/>
+  <path class="struct" d="M604 272 L626 286 L604 300 Z"/>
+
+  <!-- velocity (tangent) of the head: down-and-right, off the button axis -->
+  <line class="force" x1="412" y1="286" x2="452" y2="324" marker-end="url(#aR3a)" data-draw pathLength="1"/>
+  <!-- the only useful part: horizontal component toward the button -->
+  <line class="draw-fade" x1="412" y1="286" x2="448" y2="286" stroke="var(--line-dim)" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#aG3a)"/>
+  <!-- angle between them -->
+  <path class="draw-fade" d="M436 286 A 24 24 0 0 0 444 308" fill="none" stroke="var(--line-dim)" stroke-width="1.2"/>
+  <text class="lbl-dim draw-fade" x="446" y="302" style="font-style:italic">&#952;</text>
+
+  <!-- target drift: ghost of where the button should have been -->
+  <rect class="ghost draw-fade" x="438" y="278" width="11" height="16" rx="2"/>
+  <line class="draw-fade" x1="438" y1="270" x2="452" y2="270" stroke="var(--line-dim)" stroke-width="1.2" marker-end="url(#aG3a)"/>
+
+  <!-- ===== labels, spread into separate lanes ===== -->
+  <!-- top-left: hinge friction -->
+  <text class="lbl-rust draw-fade" x="118" y="150">hinge friction</text>
+  <line class="lead draw-fade" x1="150" y1="156" x2="186" y2="124"/>
+
+  <!-- mid-left: the swing arc -->
+  <text class="lbl-dim draw-fade" x="246" y="206">the swing's arc</text>
+
+  <!-- upper-right lane: the button's axis -->
+  <text class="lbl-dim draw-fade" x="474" y="232">button only moves &#8594;</text>
+  <line class="lead draw-fade" x1="486" y1="240" x2="462" y2="274"/>
+
+  <!-- right of hammer, upper lane: target drifted -->
+  <text class="lbl-dim draw-fade" x="370" y="250">target drifted</text>
+  <line class="lead draw-fade" x1="428" y1="256" x2="443" y2="276"/>
+
+  <!-- below hammer: velocity off-axis -->
+  <text class="lbl-rust draw-fade" x="358" y="378">velocity points off&#8209;axis</text>
+  <line class="lead draw-fade" x1="450" y1="368" x2="440" y2="322"/>
+
+  <!-- below button: only the cos component does work -->
+  <text class="lbl draw-fade" x="500" y="346" style="font-style:italic">only F &#183; cos&#952; acts</text>
+
+  <!-- far right: outcome -->
+  <text class="lbl-rust draw-fade" x="556" y="332">never fires</text>
+  <line class="lead draw-fade" x1="590" y1="324" x2="610" y2="300"/>
+</svg></div>
+          <div data-figname="b"><svg viewBox="0 0 680 470" class="dwg" aria-label="Improved launcher trigger using a light catch, a guide, a hard stop and a larger contact plate">
+  <defs>
+    <marker id="aK3b" markerWidth="11" markerHeight="11" refX="8" refY="3.4" orient="auto"><path d="M0 0L9 3.4L0 6.8z" class="ok-fill"/></marker>
+    <marker id="aD3b" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0 0L7 3L0 6z" fill="var(--line-dim)"/></marker>
+  </defs>
+
+  <g class="draw-fade" transform="translate(612 40)">
+    <circle r="20" fill="#eaf6ef"/><circle r="20" fill="none" stroke="var(--mint)" stroke-width="1.6"/>
+    <path d="M-8 1 L-3 7 L9 -6" fill="none" stroke="var(--mint)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- hinge -->
+  <circle cx="150" cy="104" r="7" fill="var(--line)"/>
+  <circle cx="150" cy="104" r="13" fill="none" class="struct"/>
+
+  <!-- hammer arm + head, now guided -->
+  <line class="struct" x1="150" y1="104" x2="372" y2="262" data-draw pathLength="1"/>
+  <circle class="ball" cx="376" cy="264" r="16"/>
+
+  <!-- guide rails + hard stop so the head lands square -->
+  <line class="struct-2" x1="300" y1="206" x2="402" y2="280" data-draw pathLength="1"/>
+  <line class="struct-2" x1="288" y1="224" x2="390" y2="298" data-draw pathLength="1"/>
+  <rect x="398" y="286" width="10" height="20" rx="2" fill="var(--line-dim)"/>
+
+  <!-- large contact plate the head meets squarely -->
+  <rect x="420" y="236" width="11" height="60" rx="3" class="part-fill"/>
+
+  <!-- short cam/lever passing the knock along to the catch -->
+  <circle cx="452" cy="266" r="4" fill="var(--line)"/>
+  <line class="struct" x1="431" y1="252" x2="470" y2="280"/>
+
+  <!-- light catch holding the pre-loaded launcher, about to be knocked free -->
+  <path class="struct" d="M474 252 l14 8 l-2 14" fill="none"/>
+  <!-- launcher: compressed spring + car, firing right toward the blade -->
+  <path class="struct-2" d="M492 286 l8 -7 l8 14 l8 -14 l8 14 l8 -14 l8 14 l6 -7" fill="none"/>
+  <rect x="486" y="276" width="22" height="20" rx="2" class="part-fill"/>
+  <!-- the car launching right -->
+  <g class="draw-fade">
+    <line class="force-ok" x1="540" y1="286" x2="592" y2="286" marker-end="url(#aK3b)"/>
+    <line x1="548" y1="276" x2="556" y2="276" stroke="var(--mint)" stroke-width="1.4"/>
+    <line x1="548" y1="296" x2="556" y2="296" stroke="var(--mint)" stroke-width="1.4"/>
+  </g>
+  <!-- the blade -->
+  <path class="struct" d="M606 270 L628 286 L606 302 Z"/>
+
+  <!-- ===== labels ===== -->
+  <text class="lbl-dim draw-fade" x="258" y="196">guide rails keep it on line</text>
+  <line class="lead draw-fade" x1="320" y1="202" x2="332" y2="226"/>
+
+  <text class="lbl-dim draw-fade" x="372" y="330">hard stop</text>
+  <line class="lead draw-fade" x1="398" y1="322" x2="402" y2="304"/>
+
+  <text class="lbl draw-fade" x="402" y="222">wide contact plate</text>
+  <line class="lead draw-fade" x1="430" y1="228" x2="426" y2="240"/>
+
+  <text class="lbl draw-fade" x="470" y="238">light catch, just knocked free</text>
+  <line class="lead draw-fade" x1="486" y1="244" x2="484" y2="256"/>
+
+  <text class="draw-fade" x="540" y="262" style="fill:var(--mint);font-size:15px">it fires &#8594; to the blade</text>
+</svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 BUILDING IT BETTER (slider) -->
+<section class="scene scene--narrow scene--choc" data-title="Building it better">
+  <div class="scene__wrap text-center">
+    <p class="eyebrow fade">Chapter Four · Building it better</p>
+    <h2 class="h2 fade d1">The hard part was doing it twenty&#8209;one times in a row.</h2>
+    <p class="prose fade d2 measure">A twenty&#8209;one step machine is a chain. Every step leans on the one before it, so the chances all multiply together. Drag the slider and watch what that does.</p>
+    <div class="rel fade d3" style="margin-top:10px">
+      <p class="rel__row">If each step works <b id="relPct">95%</b> of the time&hellip;</p>
+      <input type="range" min="80" max="100" value="95" step="1" class="slider" id="relSlider" aria-label="Per-step reliability">
+      <p class="rel__row" style="margin-top:6px">&hellip;the whole machine works only</p>
+      <div class="rel__big" id="relOut">34%</div>
+      <div class="relbar"><div class="relbar__fill" id="relBar"></div></div>
+      <p class="tagline" style="font-size:15px">twenty&#8209;one steps, multiplied together</p>
+    </div>
+    <div class="callout fade d4 measure" style="margin-top:20px;text-align:left">
+      <span class="k">What we would do differently</span>
+      <p>The fix is mostly unglamorous. We would give every step room to spare, set things up the same way each time, and test each part on its own, many times over, before ever trusting it in the chain.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6 THE FINAL EXAM (chips) -->
+<section class="scene scene--narrow" data-title="The final exam">
+  <div class="scene__wrap text-center">
+    <p class="eyebrow fade">Chapter Five · The Final Exam</p>
+    <h2 class="h2 fade d1">Every lesson was hiding in the machine.</h2>
+    <p class="prose fade d2 measure">We did not always notice, but every topic from the board had been built into the build. Tap one to see where it turned up.</p>
+    <div class="chips fade d3">
+      <button class="chip on" data-topic="t1">Moments &amp; free bodies</button>
+      <button class="chip" data-topic="t2">Center of mass</button>
+      <button class="chip" data-topic="t3">Momentum &amp; energy</button>
+      <button class="chip" data-topic="t4">Simple machines</button>
+      <button class="chip" data-topic="t5">Mechanisms</button>
+      <button class="chip" data-topic="t6">Factor of safety</button>
+      <button class="chip" data-topic="t7">Project management</button>
+    </div>
+    <div class="fade d3">
+      <div class="topicpane on" data-topicpane="t1"><div class="callout callout--ink"><span class="k">Found in steps 6 · 9 · 14 · 16</span><p>The rotating wooden levers are moment balances about a pivot, the very diagrams we drew over and over. The orange piece that would not fall was a moment problem we lost, and working out exactly why is our most honest proof the lesson landed.</p></div></div>
+      <div class="topicpane" data-topicpane="t2"><div class="callout callout--ink"><span class="k">Found in steps 12 · 16</span><p>The marble that rolls off the box and the piece that would not tip are both, underneath, the same question: where does a center of mass sit relative to the edge it leans on.</p></div></div>
+      <div class="topicpane" data-topicpane="t3"><div class="callout callout--ink"><span class="k">Found in steps 1 · 8 · 13 · 15</span><p>Why a heavier ball changes everything, why a higher ramp gives more speed, and why a winding track quietly takes it back. The whole machine ran on energy turning into motion, and motion setting off the next step.</p></div></div>
+      <div class="topicpane" data-topicpane="t4"><div class="callout callout--ink"><span class="k">Found in steps 4 · 5 · 19 · 20</span><p>The ramps are inclined planes, the hammer is a lever, and the blade that cuts the rubber band at the climax is a wedge, doing exactly the job a wedge was born to do.</p></div></div>
+      <div class="topicpane" data-topicpane="t5"><div class="callout callout--ink"><span class="k">Found in steps 7 · 15 · 19</span><p>The levers, the winding road, and the launcher all take motion in one form and hand it back in another, which is the whole reason a chain of steps can exist at all.</p></div></div>
+      <div class="topicpane" data-topicpane="t6"><div class="callout callout--ink"><span class="k">Found in Revision 01 · Revision 02</span><p>We learned what a factor of safety is for by going without one, and what tolerance stack&#8209;up means by watching twenty harmless little errors add up to one launcher that would not fire.</p></div></div>
+      <div class="topicpane" data-topicpane="t7"><div class="callout callout--ink"><span class="k">Found across the whole build</span><p>Dependencies, milestones spread across the year, and a critical path where one weak step halts everything after it. You handed us a project that could only be finished the way real engineering gets finished.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 LOOKING BACK (title card + connector) -->
+<section class="scene scene--water" data-title="Looking back">
+  <div class="scene__wrap text-center">
+    <p class="eyebrow fade" style="color:#fff">Chapter Six · Looking Back</p>
+    <h2 class="cover__title fade d1" style="font-size:clamp(30px,6.5vw,62px)">Two years,<span class="g">three machines.</span></h2>
+    <p class="cover__note fade d2" style="max-width:54ch">Now that this year&#8217;s mechanical engineering course is finished, we wanted to step outside the Rube Goldberg project and look back. Two earlier favorites taught us the very same lesson.</p>
+    <div class="connector fade d3" style="margin-top:34px">
+      <div class="connector__line"></div>
+      <div class="nodes">
+        <button class="node" data-go="1"><span class="node__orb"><svg viewBox="0 0 48 48" fill="none" stroke="var(--gold-bright)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 41V7"/><path d="M15 9 L37 13 Q31 18 37 23 L15 19 Z" fill="rgba(247,208,103,.24)"/><path d="M9 41h12"/></svg></span><span class="node__yr">This year</span><span class="node__name">The Rube Goldberg machine</span><span class="node__sub">Twenty&#8209;one steps to raise a flag</span></button>
+        <button class="node" data-go="8"><span class="node__orb"><svg viewBox="0 0 48 48" fill="none" stroke="var(--gold-bright)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 16 L41 12"/><path d="M7 21 L41 34"/><circle cx="17" cy="19.5" r="3" fill="rgba(247,208,103,.34)"/><circle cx="32" cy="27.5" r="5" fill="rgba(247,208,103,.34)"/></svg></span><span class="node__yr">Earlier</span><span class="node__name">The Galactic Sorter</span><span class="node__sub">Geometry that sorts by size</span></button>
+        <button class="node" data-go="9"><span class="node__orb"><svg viewBox="0 0 48 48" fill="none" stroke="var(--gold-bright)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7 Q6 24 16 41"/><line x1="41" y1="11" x2="21" y2="20"/><line x1="41" y1="24" x2="19" y2="24"/><line x1="41" y1="37" x2="21" y2="28"/><circle cx="20" cy="24" r="3.6" fill="var(--gold-bright)"/></svg></span><span class="node__yr">Earlier</span><span class="node__name">The Solar Cooker</span><span class="node__sub">Sunlight focused to one point</span></button>
+      </div>
+    </div>
+    <div class="fade d4" style="margin-top:30px"><button class="cta" data-go="8">See the first <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+  </div>
+</section>
+
+<!-- 8 GALACTIC SORTER -->
+<section class="scene" data-title="The galactic sorter">
+  <div class="scene__wrap">
+    <p class="eyebrow fade text-center">A classmate&#8217;s invention</p>
+    <h2 class="h2 fade d1 text-center">Let the shape do the sorting.</h2>
+    <div class="ivgrid fade d2" style="margin-top:20px;align-items:center">
+      <div class="prose">
+        <p>Two panels that slowly spread apart, so the gap between them widens along their length. Small balls drop through first, large ones hold on and fall later, and nothing decides this but the geometry. No sensors, no motors.</p>
+        <p>The clever part is how little it has to do. The logic lives in the shape itself, so the physics quietly handles the work. The hard part was the tolerancing, the very same instinct that would have saved our launcher.</p>
+      </div>
+      <div class="figbox"><p class="figbox__cap"><span>Diverging&#8209;panel sort</span><b>Passive</b></p><div class="figslot"><div><svg viewBox="0 0 640 430" class="dwg" aria-label="A ball sorter made of two diverging panels, where small balls drop through first and large balls drop through later">
+  <defs>
+    <marker id="aD6" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto"><path d="M0 0L7 3L0 6z" fill="var(--line-dim)"/></marker>
+    <marker id="aG6" markerWidth="11" markerHeight="11" refX="8" refY="3.4" orient="auto"><path d="M0 0L9 3.4L0 6.8z" class="gold-fill"/></marker>
+  </defs>
+
+  <!-- the two diverging panels -->
+  <line class="struct" x1="120" y1="142" x2="524" y2="212" data-draw pathLength="1"/>
+  <line class="struct" x1="120" y1="182" x2="524" y2="300" data-draw pathLength="1"/>
+
+  <!-- roll direction -->
+  <line class="draw-fade" x1="150" y1="196" x2="250" y2="220" stroke="var(--gold-deep)" stroke-width="1.6" marker-end="url(#aG6)"/>
+
+  <!-- gap dimension: narrow at left -->
+  <line class="dim draw-fade" x1="138" y1="148" x2="138" y2="178" marker-start="url(#aD6)" marker-end="url(#aD6)"/>
+  <!-- gap dimension: wide at right -->
+  <line class="dim draw-fade" x1="502" y1="206" x2="502" y2="292" marker-start="url(#aD6)" marker-end="url(#aD6)"/>
+
+  <!-- small ball dropping early -->
+  <circle class="ball" cx="178" cy="174" r="20"/>
+  <line class="traj draw-fade" x1="178" y1="196" x2="178" y2="320"/>
+  <path class="draw-fade" d="M178 320 l-6 -10 l12 0 z" class="gold-fill"/>
+  <!-- small ball bin -->
+  <path class="struct-2 draw-fade" d="M150 322 L150 360 L206 360 L206 322"/>
+
+  <!-- large ball dropping later -->
+  <circle class="ball" cx="440" cy="240" r="38"/>
+  <line class="traj draw-fade" x1="440" y1="278" x2="440" y2="346"/>
+  <path class="draw-fade" d="M440 346 l-6 -10 l12 0 z" class="gold-fill"/>
+  <!-- large ball bin -->
+  <path class="struct-2 draw-fade" d="M404 348 L404 388 L476 388 L476 348"/>
+
+  <!-- ===== labels ===== -->
+  <text class="lbl-dim draw-fade" x="120" y="116">two panels, spreading apart as they run</text>
+  <line class="lead draw-fade" x1="320" y1="122" x2="324" y2="170"/>
+
+  <text class="lbl-dim draw-fade" x="96" y="146" text-anchor="end" style="font-size:11px">narrow</text>
+  <text class="lbl-dim draw-fade" x="516" y="252" style="font-size:11px">wide</text>
+
+  <text class="lbl draw-fade" x="178" y="384" text-anchor="middle">small drops first</text>
+  <text class="lbl draw-fade" x="440" y="410" text-anchor="middle">large drops later</text>
+</svg></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 SOLAR COOKER -->
+<section class="scene" data-title="The solar cooker">
+  <div class="scene__wrap">
+    <p class="eyebrow fade text-center">A classmate&#8217;s invention</p>
+    <h2 class="h2 fade d1 text-center">Aim beats amount.</h2>
+    <div class="ivgrid fade d2" style="margin-top:20px;align-items:center">
+      <div class="prose">
+        <p>Curve the foil so that every parallel ray of sunlight bends toward one point. Light that was doing nothing spread flat across a panel becomes a spot hot enough to cook.</p>
+        <p>The sunlight was never the hard part, since it had been falling on everything all day. The whole trick was concentration: get the curve right, then place whatever you want to heat exactly where all that light agrees to meet.</p>
+      </div>
+      <div class="figbox"><p class="figbox__cap"><span>Parabolic focus</span><b>One point</b></p><div class="figslot"><div><svg viewBox="0 0 640 430" class="dwg" aria-label="A parabolic reflector bending parallel sunlight to a single focus point">
+  <defs>
+    <marker id="aO7" markerWidth="11" markerHeight="11" refX="8" refY="3.4" orient="auto"><path d="M0 0L9 3.4L0 6.8z" fill="var(--orange)"/></marker>
+    <radialGradient id="heat7" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#f0a23f" stop-opacity="0.85"/>
+      <stop offset="0.5" stop-color="#ef8a63" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#ef8a63" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- the parabolic foil -->
+  <path class="struct" d="M181 80 C 158 128 150 180 150 215 C 150 250 158 302 181 350" data-draw pathLength="1" stroke-width="3"/>
+
+  <!-- incoming parallel sunlight (from the right) -->
+  <g class="draw-fade">
+    <line x1="600" y1="120" x2="172" y2="120" stroke="var(--orange)" stroke-width="2" marker-end="url(#aO7)"/>
+    <line x1="600" y1="160" x2="158" y2="160" stroke="var(--orange)" stroke-width="2" marker-end="url(#aO7)"/>
+    <line x1="600" y1="215" x2="156" y2="215" stroke="var(--orange)" stroke-width="2" marker-end="url(#aO7)"/>
+    <line x1="600" y1="270" x2="158" y2="270" stroke="var(--orange)" stroke-width="2" marker-end="url(#aO7)"/>
+    <line x1="600" y1="310" x2="172" y2="310" stroke="var(--orange)" stroke-width="2" marker-end="url(#aO7)"/>
+  </g>
+
+  <!-- reflected rays, all converging on the focus -->
+  <g class="draw-fade">
+    <line x1="168" y1="120" x2="298" y2="214" stroke="var(--gold-deep)" stroke-width="1.6"/>
+    <line x1="156" y1="160" x2="298" y2="214" stroke="var(--gold-deep)" stroke-width="1.6"/>
+    <line x1="152" y1="215" x2="298" y2="215" stroke="var(--gold-deep)" stroke-width="1.6"/>
+    <line x1="156" y1="270" x2="298" y2="216" stroke="var(--gold-deep)" stroke-width="1.6"/>
+    <line x1="168" y1="310" x2="298" y2="216" stroke="var(--gold-deep)" stroke-width="1.6"/>
+  </g>
+
+  <!-- heat glow + focus + little pot -->
+  <circle cx="300" cy="215" r="42" fill="url(#heat7)" class="draw-fade"/>
+  <g class="draw-fade">
+    <path d="M286 206 L314 206 L310 226 L290 226 Z" fill="none" stroke="var(--line)" stroke-width="1.8"/>
+    <line x1="286" y1="206" x2="314" y2="206" stroke="var(--line)" stroke-width="2.4"/>
+  </g>
+  <circle cx="300" cy="215" r="4" class="rust-fill draw-fade"/>
+
+  <!-- ===== labels ===== -->
+  <text class="draw-fade" x="468" y="98" style="fill:var(--orange);font-size:14px">parallel sunlight</text>
+
+  <text class="lbl-dim draw-fade" x="92" y="206" text-anchor="end">parabolic foil</text>
+  <line class="lead draw-fade" x1="96" y1="210" x2="150" y2="218"/>
+
+  <text class="lbl-gold draw-fade" x="356" y="168">every ray bends to one point</text>
+  <line class="lead draw-fade" x1="372" y1="174" x2="320" y2="206"/>
+
+  <text class="lbl draw-fade" x="300" y="264" text-anchor="middle">the focus, hot enough to cook</text>
+</svg></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 THE ONE LESSON -->
+<section class="scene scene--narrow scene--choc" data-title="The one lesson">
+  <div class="scene__wrap text-center">
+    <p class="eyebrow fade">The thread through all three</p>
+    <h2 class="h2 fade d1">The same lesson, in three accents.</h2>
+    <div class="synth fade d2" style="margin:20px 0">
+      <div class="synth__i"><span class="synth__o"><svg viewBox="0 0 32 32" fill="none" stroke="var(--gold-bright)" stroke-width="2" stroke-linecap="round"><path d="M11 5 Q4 16 11 27"/><line x1="27" y1="9" x2="14" y2="15"/><line x1="27" y1="16" x2="13" y2="16"/><line x1="27" y1="23" x2="14" y2="17"/><circle cx="14" cy="16" r="2.4" fill="var(--gold-bright)"/></svg></span><span class="synth__l">oven: focus on the target</span></div>
+      <div class="synth__i"><span class="synth__o"><svg viewBox="0 0 32 32" fill="none" stroke="var(--gold-bright)" stroke-width="2" stroke-linecap="round"><path d="M5 11 L27 8"/><path d="M5 14 L27 23"/><circle cx="11" cy="13" r="2" fill="var(--gold-bright)"/><circle cx="21" cy="18" r="3.2" fill="var(--gold-bright)"/></svg></span><span class="synth__l">sorter: gap at the right width</span></div>
+      <div class="synth__i"><span class="synth__o"><svg viewBox="0 0 32 32" fill="none" stroke="var(--gold-bright)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 27V5"/><path d="M10 6 L25 9 Q21 12 25 16 L10 13 Z" fill="rgba(247,208,103,.3)"/><path d="M6 27h8"/></svg></span><span class="synth__l">our machine: aim, not just force</span></div>
+      <span class="synth__arr">&rarr;</span>
+      <div class="synth__i"><span class="synth__o" style="border-color:var(--gold-bright);box-shadow:0 0 34px rgba(247,208,103,.7)"><svg viewBox="0 0 32 32" fill="none" stroke="var(--gold-bright)" stroke-width="2"><circle cx="16" cy="16" r="11"/><circle cx="16" cy="16" r="6"/><circle cx="16" cy="16" r="1.6" fill="var(--gold-bright)"/></svg></span><span class="synth__l" style="color:var(--gold-pale)">one idea</span></div>
+    </div>
+    <p class="prose fade d3 measure">Line the three up and they say the same thing. The oven works when the focus lands on the target. The sorter works when the gap opens at the right width. And both of our failures came from the other side of it: the marble had real momentum but spent it striking low, and the hammer had real energy but spent it striking off&#8209;axis.</p>
+    <div class="callout fade d4 measure" style="margin-top:24px;text-align:center">
+      <p style="margin:0;font-family:var(--f-display);font-style:italic;font-size:1.28em;color:var(--gold-bright)">A little energy aimed exactly where you need it beats a lot of energy sprayed almost everywhere.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 11 THE TEAM -->
+<section class="scene scene--narrow scene--choc" data-title="The team">
+  <div class="scene__wrap text-center">
+    <p class="eyebrow fade">Chapter Nine · The Chocolatiers</p>
+    <h2 class="h2 fade d1">The most important step was never on the table.</h2>
+    <div class="prose fade d2 measure-left">
+      <p>We can draw a falling hammer. We cannot really draw the thing that built this machine, which was seven people refusing to let it stay broken: the late nights, the kitchens that smelled like hot glue, the marble that misbehaved at the worst possible moment, and the ridiculous joy when a run finally went clean and somebody cheered out loud.</p>
+      <p>You wrote a rule that the step before yours and the step after yours had to be built by someone else. It took us all year to see why. None of us could ever finish alone. The shape of the machine, where each result becomes the next person&#8217;s start, turned out to be a quiet picture of our own team.</p>
+    </div>
+    <div class="callout fade d3 measure" style="text-align:center">
+      <p style="margin:0;font-family:var(--f-display);font-style:italic;font-size:1.22em;color:var(--gold-bright)">Trigger, action, output was how the machine ran, and somewhere along the way it became how the seven of us ran too.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 12 GOODBYE -->
+<section class="scene scene--water" data-title="For Dr. Weinstein">
+  <div class="scene__wrap text-center">
+    <p class="eyebrow fade" style="color:#fff">For Dr. Weinstein</p>
+    <h2 class="cover__title fade d1" style="font-size:clamp(30px,5vw,58px)">One more flag,<span class="g">for you.</span></h2>
+    <div class="prose fade d2 measure-left" style="margin-top:14px;color:#fff;text-shadow:0 1px 8px rgba(60,10,50,.45)">
+      <p>You gave this academy eleven years, and twenty&#8209;six before that as an engineer out in industry. Somewhere in all of it you decided to teach us with a workbench, a story, and a problem that could only be solved slowly and honestly. We did not always realize you were teaching us something bigger than statics. We do now.</p>
+      <p>Our machine was built to raise a flag, and after two honest failures and a great deal of midnight, it did. We would like to raise one more, by hand this time, and leave it up.</p>
+      <p>Thank you for the pearls of engineering wisdom, for the red marks that quietly made us better, and for taking a group of teenagers seriously as engineers long enough that we started to become them.</p>
+    </div>
+    <div class="fade d3" style="margin:10px auto 0;max-width:96px"><svg viewBox="0 0 240 280" aria-label="A golden flag, raised by hand" style="width:100%;height:auto;filter:drop-shadow(0 0 22px rgba(247,208,103,.55))">
+  <line x1="42" y1="250" x2="198" y2="250" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
+  <g stroke="rgba(255,255,255,.5)" stroke-width="1.4">
+    <line x1="56" y1="250" x2="48" y2="262"/><line x1="84" y1="250" x2="76" y2="262"/><line x1="112" y1="250" x2="104" y2="262"/><line x1="140" y1="250" x2="132" y2="262"/><line x1="168" y1="250" x2="160" y2="262"/><line x1="190" y1="250" x2="182" y2="262"/>
+  </g>
+  <rect x="66" y="238" width="28" height="12" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.6"/>
+  <line x1="80" y1="34" x2="80" y2="238" stroke="rgba(255,255,255,.85)" stroke-width="2.2"/>
+  <circle cx="80" cy="32" r="5" fill="#f7d067"/>
+  <path class="flag-rope" d="M80 46 L82 96 L80 150 L82 196" stroke="rgba(255,255,255,.5)" stroke-width="1.6" fill="none" pathLength="1"/>
+  <path d="M82 52 L198 46 Q174 72 198 96 L82 102 Z" fill="rgba(247,208,103,.85)" stroke="#fff4d2" stroke-width="2"/>
+  <path d="M82 52 L82 102" stroke="#fff4d2" stroke-width="2"/>
+  <path d="M136 60 l3.6 7.4 8.1 .9 -6 5.6 1.5 8.1 -7.2-3.9 -7.2 3.9 1.5-8.1 -6-5.6 8.1-.9z" fill="#fff4d2"/>
+</svg></div>
+    <div class="fade d3" style="margin-top:10px">
+      <p class="signoff">With every thank you we have,</p>
+      <p class="crew-final">Ashwath · Vishika · Anvitha · Srujana · Ekya · Dip · Aarush</p>
+      <p class="crew-final" style="color:#fff;opacity:.9;font-size:13px;letter-spacing:.16em;margin-top:10px">MECHANICAL &amp; CIVIL ENGINEERING 11 · EDISON ACADEMY</p>
+    </div>
+    <p class="colophon fade d4" style="margin-top:16px">An original waltz plays at the tap of the note up top, written for this page with a tip of the hat to Singin&#8217; in the Rain. Built, debugged, and signed by the seven of us, for Dr. Weinstein, in his final year of teaching.</p>
+    <div class="fade d4" style="margin-top:12px"><button class="cta cta--ghost" data-go="0">Return to the start</button></div>
+  </div>
+</section>
+
+  </main>
+
+  <!-- ===================== BOTTOM NAV ===================== -->
+  <nav id="bottom" aria-label="Tour navigation">
+    <button class="navbtn navbtn--back" id="btnBack" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg>
+      <span>Back</span>
+    </button>
+    <div class="dots" id="navDots" aria-hidden="true"></div>
+    <button class="navbtn navbtn--next" id="btnNext" type="button">
+      <span class="navtxt"><span class="navbtn__k">Next</span><span class="navbtn__l" id="nextLabel">The machine</span></span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </nav>
+</div>
+
+<!-- ===================== MENU ===================== -->
+<div class="menu" id="menu">
+  <div class="menu__panel">
+    <div class="menu__head">
+      <span class="menu__ttl">Chapters</span>
+      <button class="menu__close" id="menuClose" type="button" aria-label="Close">&times;</button>
+    </div>
+    <div class="menu__list"></div>
+  </div>
+</div>
+
+<div class="musichint" id="musicHint"><b>A little tune?</b><br>An original waltz, with a tip of the hat to <i>Singin&#8217; in the Rain</i>. Tap to play.</div>
+
+<button class="scrollcue" id="scrollCue" type="button" aria-label="Scroll down for more on this page">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+</button>
+
+<script>
+/* ============================ DECK CONTROLLER ============================ */
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var body=document.body, deck=document.getElementById('deck');
+  var scenes=[].slice.call(document.querySelectorAll('.scene'));
+  var titleEl=document.getElementById('navTitle'), counterEl=document.getElementById('navCounter');
+  var dotsEl=document.getElementById('navDots'), backBtn=document.getElementById('btnBack');
+  var nextBtn=document.getElementById('btnNext'), nextLabel=document.getElementById('nextLabel');
+  var menuBtn=document.getElementById('btnMenu'), menu=document.getElementById('menu'), menuClose=document.getElementById('menuClose');
+  var titles=scenes.map(function(s){return s.getAttribute('data-title')||'';});
+  var current=-1, N=scenes.length;
+
+  scenes.forEach(function(s,i){
+    var d=document.createElement('button'); d.className='dot'; d.type='button';
+    d.setAttribute('aria-label','Go to '+titles[i]); d.addEventListener('click',function(){go(i);});
+    dotsEl.appendChild(d);
+    var m=document.createElement('button'); m.className='menu__item'; m.type='button';
+    m.innerHTML='<span class="menu__n">'+i+'</span><span>'+titles[i]+'</span>';
+    m.addEventListener('click',function(){ closeMenu(); go(i); });
+    menu.querySelector('.menu__list').appendChild(m);
+  });
+  var dots=[].slice.call(dotsEl.children), menuItems=[].slice.call(menu.querySelectorAll('.menu__item'));
+
+  function go(i){
+    i=Math.max(0,Math.min(N-1,i)); if(i===current) return;
+    scenes.forEach(function(s,k){ s.classList.toggle('active',k===i); s.classList.toggle('prev',k<i); });
+    current=i;
+    var act=scenes[i]; if(act) act.scrollTop=0;
+    if(titleEl) titleEl.textContent=titles[i];
+    if(counterEl) counterEl.textContent=(i+1)+' / '+N;
+    dots.forEach(function(d,k){ d.classList.toggle('on',k===i); d.classList.toggle('done',k<i); });
+    menuItems.forEach(function(m,k){ m.classList.toggle('on',k===i); });
+    backBtn.disabled = i===0;
+    if(i===N-1){ nextBtn.classList.add('is-finish'); nextLabel.textContent='Back to the start'; nextBtn.querySelector('.navbtn__k').textContent='Replay'; }
+    else { nextBtn.classList.remove('is-finish'); nextLabel.textContent=titles[i+1]; nextBtn.querySelector('.navbtn__k').textContent='Next'; }
+    if(typeof updateCue==='function'){ requestAnimationFrame(updateCue); setTimeout(updateCue,120); }
+  }
+  function next(){ if(current>=N-1) go(0); else go(current+1); }
+  function prev(){ go(current-1); }
+  nextBtn.addEventListener('click',next); backBtn.addEventListener('click',prev);
+  document.addEventListener('click',function(e){ var t=e.target.closest('[data-go]'); if(t){ e.preventDefault(); go(parseInt(t.getAttribute('data-go'),10)); }});
+  function openMenu(){ menu.classList.add('open'); } function closeMenu(){ menu.classList.remove('open'); }
+  menuBtn.addEventListener('click',function(){ menu.classList.toggle('open'); });
+  menuClose.addEventListener('click',closeMenu);
+  menu.addEventListener('click',function(e){ if(e.target===menu) closeMenu(); });
+  document.addEventListener('keydown',function(e){
+    if(menu.classList.contains('open')){ if(e.key==='Escape') closeMenu(); return; }
+    if(e.key==='ArrowRight'||e.key==='PageDown'){ e.preventDefault(); next(); }
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); prev(); }
+  });
+
+  /* tabs (intervention scenes) */
+  [].slice.call(document.querySelectorAll('.tabs')).forEach(function(group){
+    var tabs=[].slice.call(group.querySelectorAll('.tab')), scene=group.closest('.scene');
+    tabs.forEach(function(tab){ tab.addEventListener('click',function(){
+      var name=tab.getAttribute('data-tab'), fig=tab.getAttribute('data-fig');
+      tabs.forEach(function(t){ t.classList.toggle('on',t===tab); });
+      scene.querySelectorAll('[data-pane]').forEach(function(p){ p.classList.toggle('on',p.getAttribute('data-pane')===name); });
+      if(fig) scene.querySelectorAll('[data-figname]').forEach(function(f){ f.classList.toggle('on',f.getAttribute('data-figname')===fig); });
+    });});
+  });
+
+  /* reliability slider */
+  var slider=document.getElementById('relSlider');
+  if(slider){
+    var pct=document.getElementById('relPct'), out=document.getElementById('relOut'), bar=document.getElementById('relBar');
+    function upd(){
+      var r=parseInt(slider.value,10); pct.textContent=r+'%';
+      var w=Math.pow(r/100,21)*100;
+      out.textContent=w.toFixed(w<1?2:(w<10?1:0))+'%';
+      if(bar){ bar.style.width=Math.max(1.5,w)+'%';
+        bar.style.background = w<34?'linear-gradient(90deg,#c8402f,#ef8a63)':(w<70?'linear-gradient(90deg,#ef8a63,#e6b53f)':'linear-gradient(90deg,#e6b53f,#4eb38a)'); }
+    }
+    slider.addEventListener('input',upd); upd();
+  }
+
+  /* exam chips */
+  var chips=[].slice.call(document.querySelectorAll('.chip'));
+  chips.forEach(function(chip){ chip.addEventListener('click',function(){
+    var name=chip.getAttribute('data-topic');
+    chips.forEach(function(c){ c.classList.toggle('on',c===chip); });
+    document.querySelectorAll('[data-topicpane]').forEach(function(p){ p.classList.toggle('on',p.getAttribute('data-topicpane')===name); });
+  });});
+
+  /* gentle scroll cue for any page taller than the screen */
+  var cue=document.getElementById('scrollCue');
+  function updateCue(){
+    if(!cue) return;
+    var act=scenes[current];
+    var more = act ? (act.scrollHeight - act.clientHeight - act.scrollTop) : 0;
+    cue.classList.toggle('show', !!act && more > 24);
+  }
+  scenes.forEach(function(s){ s.addEventListener('scroll', function(){ if(s===scenes[current]) updateCue(); }, {passive:true}); });
+  window.addEventListener('resize', function(){ requestAnimationFrame(updateCue); });
+  if(cue){ cue.addEventListener('click', function(){
+    var act=scenes[current]; if(!act) return;
+    act.scrollBy({ top: Math.round(act.clientHeight*0.7), left:0, behavior: reduce ? 'auto' : 'smooth' });
+  }); }
+
+  body.classList.add('deck-on');
+  go(0);
+
+  /* sparkles + chocolate bubbles */
+  if(!reduce){
+    var fx=document.getElementById('fx');
+    if(fx){
+      for(var i=0;i<34;i++){ var s=document.createElement('span');
+        s.className=(Math.random()<0.34)?'sparkle big':'sparkle';
+        s.style.left=Math.random()*100+'vw'; s.style.top=Math.random()*100+'vh';
+        var dur=3+Math.random()*4; s.style.animationDuration=dur+'s'; s.style.animationDelay=(-Math.random()*dur)+'s';
+        s.style.transform='scale('+(0.6+Math.random()*1.2)+')'; fx.appendChild(s);
+      }
+      for(i=0;i<14;i++){
+        var b=document.createElement('span'); b.className='bubble';
+        var size=8+Math.random()*18;
+        b.style.width=size+'px'; b.style.height=size+'px';
+        b.style.left=Math.random()*100+'vw';
+        var bd=11+Math.random()*12;
+        b.style.animationDuration=bd+'s';
+        b.style.animationDelay=(-Math.random()*bd)+'s';
+        b.style.setProperty('--drift',(Math.random()*70-35)+'px');
+        fx.appendChild(b);
+      }
+    }
+  }
+})();
+
+/* ============================ MUSIC (original waltz) ============================ */
+(function(){
+  var reduceMo=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var btn=document.getElementById('musicBtn'), hint=document.getElementById('musicHint');
+  if(!btn) return;
+  var AC=window.AudioContext||window.webkitAudioContext; if(!AC){ btn.style.display='none'; return; }
+  var N={C3:130.81,D3:146.83,E3:164.81,F3:174.61,G3:196.00,A3:220.00,B3:246.94,C4:261.63,D4:293.66,E4:329.63,F4:349.23,G4:392.00,A4:440.00,B4:493.88,C5:523.25,D5:587.33,E5:659.25,F5:698.46,G5:783.99};
+  var chordSeq=['C','G','C','G','F','C','G','C','C','G','F','C','G','C','G','C'];
+  var bassMap={C:'C3',G:'G3',F:'F3'}, padMap={C:['E4','G4'],G:['B3','D4'],F:['A3','C4']}, stabMap={C:'G4',G:'D5',F:'C5'};
+  var melodyByBar=[[['G4',1],['C5',1],['E5',1]],[['D5',1],['B4',1],['G4',1]],[['C5',1],['E5',1],['G4',1]],[['D5',2],['G4',1]],[['A4',1],['C5',1],['F5',1]],[['E5',1],['C5',1],['G4',1]],[['D5',1],['B4',1],['G4',1]],[['C5',2],['REST',1]],[['E5',1],['G5',1],['C5',1]],[['D5',1.5],['B4',0.5],['G4',1]],[['A4',1],['F5',1],['C5',1]],[['E5',2],['G4',1]],[['B4',1],['D5',1],['G5',1]],[['E5',1],['C5',1],['G4',1]],[['D5',1],['G4',1],['B4',1]],[['C5',3]]];
+  var EV=[];
+  for(var bar=0;bar<16;bar++){ var t0=bar*3, ch=chordSeq[bar];
+    EV.push({t:t0,f:N[bassMap[ch]],d:2.6,kind:'b'});
+    padMap[ch].forEach(function(pn){ EV.push({t:t0,f:N[pn],d:2.9,kind:'p'}); });
+    EV.push({t:t0+1,f:N[stabMap[ch]],d:0.5,kind:'s'}); EV.push({t:t0+2,f:N[stabMap[ch]],d:0.5,kind:'s'});
+    var tt=t0; melodyByBar[bar].forEach(function(pr){ if(pr[0]!=='REST') EV.push({t:tt,f:N[pr[0]],d:pr[1],kind:'m'}); tt+=pr[1]; });
+  }
+  EV.sort(function(a,b){return a.t-b.t;});
+  var BEAT=0.46, loopDur=48*BEAT, look=0.10, ctx=null, master=null, playing=false, timer=null, loopStart=0, idx=0;
+  function graph(){ master=ctx.createGain(); master.gain.value=0.0001;
+    var lp=ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=3600; lp.Q.value=0.4;
+    master.connect(lp); lp.connect(ctx.destination);
+    var dl=ctx.createDelay(); dl.delayTime.value=0.27; var fb=ctx.createGain(); fb.gain.value=0.22; var wet=ctx.createGain(); wet.gain.value=0.12;
+    lp.connect(dl); dl.connect(fb); fb.connect(dl); dl.connect(wet); wet.connect(ctx.destination); }
+  function bell(f,t,d,g){ var o=ctx.createOscillator(),a=ctx.createGain(); o.type='triangle'; o.frequency.value=f;
+    a.gain.setValueAtTime(0.0001,t); a.gain.linearRampToValueAtTime(g,t+0.012); a.gain.exponentialRampToValueAtTime(0.0001,t+Math.max(0.2,d*0.95));
+    o.connect(a); a.connect(master); o.start(t); o.stop(t+Math.max(0.24,d)+0.05); }
+  function bass(f,t,d,g){ var o=ctx.createOscillator(),a=ctx.createGain(); o.type='sine'; o.frequency.value=f;
+    a.gain.setValueAtTime(0.0001,t); a.gain.linearRampToValueAtTime(g,t+0.02); a.gain.exponentialRampToValueAtTime(0.0001,t+d*0.9);
+    o.connect(a); a.connect(master); o.start(t); o.stop(t+d+0.05); }
+  function pad(f,t,d,g){ var o=ctx.createOscillator(),a=ctx.createGain(); o.type='sine'; o.frequency.value=f;
+    a.gain.setValueAtTime(0.0001,t); a.gain.linearRampToValueAtTime(g,t+0.1); a.gain.setValueAtTime(g,t+d*0.65); a.gain.linearRampToValueAtTime(0.0001,t+d);
+    o.connect(a); a.connect(master); o.start(t); o.stop(t+d+0.05); }
+  function sched(){ if(!playing||!ctx) return;
+    if(loopStart+loopDur<ctx.currentTime){ loopStart=ctx.currentTime+0.05; idx=0; }
+    var hor=ctx.currentTime+look+0.05;
+    while(true){ if(idx>=EV.length){ loopStart+=loopDur; idx=0; } var e=EV[idx], t=loopStart+e.t*BEAT;
+      if(t>=hor) break;
+      if(t>=ctx.currentTime-0.02){ if(e.kind==='m') bell(e.f,t,e.d*BEAT,0.15); else if(e.kind==='b') bass(e.f,t,e.d*BEAT,0.16); else if(e.kind==='p') pad(e.f,t,e.d*BEAT,0.02); else if(e.kind==='s') bell(e.f,t,e.d*BEAT,0.045); }
+      idx++; } }
+  function start(){ if(!ctx){ try{ ctx=new AC(); }catch(err){ return; } graph(); } if(ctx.state==='suspended') ctx.resume();
+    playing=true; btn.classList.add('playing'); btn.setAttribute('aria-label','Pause the tune');
+    var now=ctx.currentTime; master.gain.cancelScheduledValues(now); master.gain.setValueAtTime(Math.max(0.0001,master.gain.value),now); master.gain.linearRampToValueAtTime(0.5,now+0.7);
+    loopStart=now+0.12; idx=0; timer=setInterval(sched,25); sched(); }
+  function stop(){ playing=false; btn.classList.remove('playing'); btn.setAttribute('aria-label','Play a little tune');
+    if(timer){ clearInterval(timer); timer=null; } if(master&&ctx){ var now=ctx.currentTime; master.gain.cancelScheduledValues(now); master.gain.setValueAtTime(master.gain.value,now); master.gain.linearRampToValueAtTime(0.0001,now+0.4); } }
+  function hideHint(){ if(hint) hint.classList.remove('show'); }
+  btn.addEventListener('click',function(){ if(playing) stop(); else start(); hideHint(); });
+  var nb=document.getElementById('bottom'); if(nb) nb.addEventListener('click',hideHint);
+  var mb=document.getElementById('btnMenu'); if(mb) mb.addEventListener('click',hideHint);
+  document.addEventListener('keydown',function(e){ if(e.key==='ArrowRight'||e.key==='ArrowLeft') hideHint(); });
+  if(hint&&!reduceMo){ setTimeout(function(){ if(!playing) hint.classList.add('show'); },2800); setTimeout(hideHint,10000); }
+})();
+</script>
+</body>
+</html>
